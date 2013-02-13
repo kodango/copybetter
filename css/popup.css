@@ -1,0 +1,34 @@
+body {
+    margin: 0; 
+    font-size: 0.8em;
+}
+
+#popup {
+    width: 300px;
+    padding: 0.5em;
+}
+
+#hints a {
+    text-decoration: none;
+}
+
+#hints {
+    padding-bottom: 0.5em;
+    border-bottom: 1px solid silver;
+}
+
+#recent-cache {
+    padding-top: 0.5em;
+}
+
+#recent-cache ol { 
+    padding: 0;
+    margin: 0 0 0 1.5em;
+}
+
+.cache-item { }
+
+span.selected {
+    color: green;
+    font-weight: bold;
+}

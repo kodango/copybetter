@@ -1,0 +1,44 @@
+{
+  "default_locale": "en",
+
+  "name": "__MSG_ext_name__",
+  "version": "1.0.0",
+  "manifest_version": 2,
+  "description": "__MSG_ext_desc__",
+
+  "background": {
+      "page": "background.html"
+  },
+
+  "browser_action": {
+      "default_title": "__MSG_browser_action_title__",
+      "default_popup": "popup.html",
+      "default_icon": {
+        "19": "/img/icon-16.png",
+        "38": "/img/icon-32.png"
+      }
+  },
+  
+  "options_page": "options.html",
+
+  "content_scripts": [ {
+    "all_frames": true,
+    "js": [ "/js/copybetter.js" ],
+    "matches": [ "http://*/*", "https://*/*" ],
+    "run_at": "document_start"
+  } ],
+
+  "icons": {
+    "16": "/img/icon-16.png",
+    "32": "/img/icon-32.png",
+    "48": "/img/icon-48.png",
+    "64": "/img/icon-64.png",
+    "128": "img/icon-128.png"
+  },
+
+  "permissions": [
+      "https://*/*", "http://*/*", "clipboardWrite", "tabs"
+  ],
+
+  "content_security_policy": "script-src 'self'; object-src 'self'"
+}

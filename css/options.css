@@ -1,0 +1,66 @@
+body, html {
+    margin: 0;
+    font-family: sans-serif;
+}
+
+#header {
+    background-color:#f5f5f5;
+    border-bottom:1px inset #e5e5e5;
+    padding:20px 50px;
+}
+
+#header-text {
+    background-image:url('/img/icon-32.png');
+    background-repeat:no-repeat;
+    padding:5px 40px;
+    font-size:16px;
+    font-weight:bold;
+    float: left;
+}
+
+#header-info {
+    float: left;
+    padding:5px 40px;
+    font-size: 13px;
+}
+
+#header-info a {
+    text-decoration: none;
+    color: #07b;
+}
+
+#content {
+    padding:20px 50px;
+    font-size: 13px;
+}
+
+#settings table td {
+    padding: 5px 10px 5px 0;
+}
+
+#button button {
+    margin: 10px 10px 10px 0;
+    padding: 5px 10px;
+    border: 1px solid #e5e5e5;
+    border-radius: 4px;
+    box-shadow: 0 0 1px #eee;
+    background: #fafafa;
+    font-family: sans-serif;
+}
+
+#button button:hover {
+    cursor:pointer;
+    border:1px solid #555; 
+    box-shadow: 0 0 1px #555;
+    background: #1a1a1a;
+    color: #fafafa;
+}
+
+#content textarea {
+    width: 350px;
+}
+
+.clearfix {
+    overflow: auto;
+    _height: 1%;
+}

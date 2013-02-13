@@ -1,0 +1,85 @@
+{
+    "ext_name": {
+        "message": "增强复制"
+    },
+
+    "ext_desc": {
+        "message": "扩展原生复制功能"
+    },
+
+    "browser_action_title": {
+        "message": "打开剪贴版缓存列表"
+    },
+
+    "opt_title_name": {
+        "message": "Copy Better选项"
+    },
+
+    "feedback": {
+        "message": "反馈问题"
+    },
+
+    "save": {
+        "message": "保存"
+    },
+
+    "reset": {
+        "message": "重置"
+    },
+
+    "restore": {
+        "message": "恢复"
+    },
+
+    "opt_copy_on_select": {
+        "message": "选中文字时自动复制"
+    },
+
+    "opt_copy_title_raw_fmt": {
+        "message": "复制标签标题和地址 (文本格式, Ctrl+c)"
+    },
+
+    "opt_copy_title_fmt": {
+        "message": "复制标签标题和地址 (HTML格式, Shift+c)"
+    },
+
+    "opt_enable_debug": {
+        "message": "*启用调试日志"
+    },
+
+    "opt_store_cache_on_exit": {
+        "message": "退出当前窗口时保存剪贴版中的缓存内容"
+    },
+
+    "opt_cache_size": {
+        "message": "剪贴版中保存的缓存个数"
+    },
+
+    "opt_max_chars": {
+        "message": "弹出窗口中仅显示复制缓存项内容的前n个字符"
+    },
+
+    "save_notify": {
+        "message": "选项已经保存成功"
+    },
+
+    "reset_notify": {
+        "message": "选项已经还原成上次保存的设置"
+    },
+
+    "restore_notify": {
+        "message": "选项已经重置成初始设置"
+    },
+
+    "empty_copy_cache_hint": {
+        "message": "剪贴版缓存为空!"
+    },
+
+    "clear_cache": {
+        "message": "清空缓存"
+    },
+
+    "option": {
+        "message": "设置"
+    }
+}

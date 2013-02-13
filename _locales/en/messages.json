@@ -1,0 +1,85 @@
+{
+    "ext_name": {
+        "message": "Copy Better"
+    },
+
+    "ext_desc": {
+        "message": "Make copy better"
+    },
+
+    "browser_action_title": {
+        "message": "Open copy cache list"
+    },
+
+    "opt_title_name": {
+        "message": "Copy Better Options"
+    },
+
+    "feedback": {
+        "message": "Leave feedback"
+    },
+
+    "save": {
+        "message": "Save"
+    },
+
+    "reset": {
+        "message": "Reset"
+    },
+
+    "restore": {
+        "message": "Restore"
+    },
+
+    "opt_copy_on_select": {
+        "message": "Copy selected text automatically"
+    },
+
+    "opt_copy_title_raw_fmt": {
+        "message": "Copy title and url (text format, Ctrl+c)"
+    },
+
+    "opt_copy_title_fmt": {
+        "message": "Copy title and url (html format, Shift+c)"
+    },
+
+    "opt_enable_debug": {
+        "message": "*Enable debug log function"
+    },
+
+    "opt_store_cache_on_exit": {
+        "message": "Store the copy cache when exit current window"
+    },
+
+    "opt_cache_size": {
+        "message": "The maximum number of copy cache item"
+    },
+
+    "opt_max_chars": {
+        "message": "Only display first n chars of copy cache item in the popup window"
+    },
+
+    "save_notify": {
+        "message": "Options have been saved successfully"
+    },
+
+    "reset_notify": {
+        "message": "Options have been reset successfully"
+    },
+
+    "restore_notify": {
+        "message": "Options have been restored successfully"
+    },
+
+    "empty_copy_cache_hint": {
+        "message": "Copy cache is empty now!"
+    },
+
+    "clear_cache": {
+        "message": "Clear"
+    },
+
+    "option": {
+        "message": "Option"
+    }
+}
