@@ -35,7 +35,7 @@ function loadConfig()
         'copyOnSelect': get('copyOnSelect', true),
         'copyTitleRawFmt': get('copyTitleRawFmt', '%TITLE%\n%URL%'),
         'copyTitleFmt': get('copyTitleFmt', '<a href="%URL%" target="_blank">%TITLE%</a>'),
-        'enableDebug': get('enableDebug', true),
+        'enableDebug': get('enableDebug', false),
         'storeCacheOnExit': get('storeCacheOnExit', true),
         'cache': get('cache', []),
         'maxLineCharsOnPopup': get('maxLineCharsOnPopup', 40)
