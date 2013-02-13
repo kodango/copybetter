@@ -19,6 +19,8 @@
       }
   },
   
+  "update_url": "https://raw.github.com/dangoakachan/copybetter/master/update/updates.xml",
+
   "options_page": "options.html",
 
   "content_scripts": [ {
