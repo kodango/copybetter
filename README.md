@@ -30,11 +30,11 @@ Extension usage
 
 未选中任何文字时, 按下ctrl+c键以文本格式复制文章的标题与地址, 默认的格式为:
 
-  Chrome扩展之增强复制功能 - http://kodango.com/copy-extension
+    Chrome扩展之增强复制功能 - http://kodango.com/copy-extension
 
 未选中文字时，按下shift+c键以HTML格式复制文章的标题与地址，默认的格式为:
 
-  <a href="http://kodango.com/copy-extension" target="_blank">Chrome扩展之增强复制功能</a>
+    <a href="http://kodango.com/copy-extension" target="_blank">Chrome扩展之增强复制功能</a>
 
 此时, 再次点击工具栏上的图标, 会显示上面复制的内容, 点击列表中的每一项复制, 如果当前在输入框中, 则会自动将选择的内容插入到光标所在的位置。
 
