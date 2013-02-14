@@ -23,7 +23,6 @@ This extension has below functions:
 
 Extension usage
 ================
-
 中文说明
 --------
 
@@ -56,7 +55,7 @@ If you select nothing, press shift+c will copy the current page's title and url
 in html format like `<a href="%URL%" target="_blank">%TITLE%</a>. So visit
 google.com again, this time will give a different result:
 
-   <a href="https://www.google.com/" target="_blank">Google</a>
+    <a href="https://www.google.com/" target="_blank">Google</a>
 
 Copy Better extension will remember recent N copy record in cache, you can find
 this list through clicking the toolbar icon. Select any copy cache item in the
