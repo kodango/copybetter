@@ -42,7 +42,7 @@ English Help
 ------------
 
 If you select the text, it will be copied automatically by default, you can
-disale this function through the option. If you press shift+c when select text,
+disable this function through the option. If you press shift+c when select text,
 then the html source code will be copied instead.
 
 If you select nothing, press ctrl+c will copy the current page's tile and url

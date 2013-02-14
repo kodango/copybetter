@@ -9,7 +9,7 @@
     /* An empty debug function */
     var _emptyFunc = function(msg) {};
     /* A simple debug function */
-    var _debug = function(msg) { console.log(msg); };
+    var _debugFunc = function(msg) { console.log(msg); };
     /* Real debug function */
     var debug = _emptyFunc;
 
@@ -21,9 +21,12 @@
         config = newConfig;
 
         if (config.enableDebug) {
-            debug = _debug;
-            debug('Update config successfully');
+            debug = _debugFunc;
+        } else {
+            debug = _emptyFunc;
         }
+
+        debug('Update config successfully');
     }
 
     /*
