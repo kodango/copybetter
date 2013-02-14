@@ -3,13 +3,34 @@
  */
 
 (function() {
+    /* Local configuration */
     var config = {};
-    var debug = function(msg) {};
+
+    /* An empty debug function */
+    var _emptyFunc = function(msg) {};
+    /* A simple debug function */
+    var _debug = function(msg) { console.log(msg); };
+    /* Real debug function */
+    var debug = _emptyFunc;
+
+    /*
+     * Update config to new one
+     */
+    function updateConfig(newConfig)
+    {
+        config = newConfig;
+
+        if (config.enableDebug) {
+            debug = _debug;
+            debug('Update config successfully');
+        }
+    }
 
     /*
      * Get selected html content.
      */
-    function html(sel) {
+    function html(sel) 
+    {
         var div = document.createElement('div');
         var range = sel.getRangeAt(0);
 
@@ -37,9 +58,19 @@
     function isSelected(sel) { return !sel.isCollapsed; }
 
     /*
+     * Check whether the element is a edit box, like textarea or text input
+     */
+    function isEditBox(elem) 
+    {
+        return (elem.tagName == 'INPUT' && elem.type == "text")
+            || elem.tagName == 'TEXTAREA';
+    }
+
+    /*
      * Copy non-empty value to clipboard
      */
-    function copy(value, mode) {
+    function copy(value, mode)
+    {
         if (value.match(/^(\s|\n)*$/) != null)
             return;
 
@@ -57,12 +88,14 @@
     /*
      * Click event handler
      */
-    function onclick(event) {
-        if ((event.target.tagName == 'INPUT' && event.target.type == 'text')
-                || event.target.tagName == 'TEXTAREA')
+    function onclick(event)
+    {
+        if (isEditBox(event.target))
             return;
 
         var raw = true;
+        var value = "";
+        var sel = window.getSelection();
 
         if (event.shiftKey && event.keyCode == 67) /* Shift + c */
             raw = false;
@@ -70,9 +103,6 @@
             raw = true;
         else
             return;
-
-        var value = "";
-        var sel = window.getSelection();
 
         if (!isSelected(sel)) {
             if (raw) {
@@ -94,52 +124,65 @@
     /*
      * Mouseup event handler
      */
-    function onmouseup(event) {
+    function onmouseup(event)
+    {
         if (!config.copyOnSelect)
             return;
 
-        var target = event.target;
-        var sel = window.getSelection();
         var value = "";
+        var sel = window.getSelection();
 
-        if (target.tagName == 'INPUT' || target.tagName == 'TEXTAREA')
-            value = target.value.substring(target.selectionStart,
-                    target.selectionEnd);
-        else if (isSelected(sel))
+        if (config.copyOnSelectInBox && isEditBox(event.target)) {
+            value = event.target.value;
+            value = value.substring(event.target.selectionStart,
+                    event.target.selectionEnd);
+            copy(value);
+        } else if (isSelected(sel)) {
             value = text(sel);
-
-        copy(value);
+            copy(value);
+        }
     }
 
     /*
      * Load configure from background page
      */
     chrome.extension.sendMessage({command: 'load'}, function(response) {
-        config = response; 
-
-        if (config.enableDebug) {
-            debug = function(msg) { console.log(msg); };
-        }
+        updateConfig(response);
     });
+
+    /*
+     * Copy from cache list
+     */
+    function copyFromCache(str)
+    {
+        var target = document.activeElement;
+
+        debug('Active element is ' + target.tagName);
+
+        if (isEditBox(target)) {
+            target.value = target.value.substring(0, target.selectionStart) + 
+                str + target.value.substring(target.selectionEnd);
+            debug('Paste string: ' + str);
+        } else {
+            debug('Copy string: ' + str);
+        }
+    }
 
     /*
      * Proceess paste message from extension
      */
     chrome.extension.onMessage.addListener(
-        function(request, sender, sendResponse) {
-            if (request.command != 'paste')
-                return;
-
-            var target = document.activeElement;
-            debug('Active element is ' + target.tagName);
-
-            if ((target.tagName == 'INPUT' && target.type == "text") ||
-                target.tagName == 'TEXTAREA') {
-                target.value = target.value.substring(0, target.selectionStart) + 
-                    request.data + target.value.substring(target.selectionEnd);
-                debug('Paste string: ' + request.data);
-            } else {
-                debug('Copy string: ' + request.data);
+        function(request, sender, sendResponse) 
+        {
+            switch (request.command) {
+                case 'paste':
+                    copyFromCache(request.data);
+                    break;
+                case 'update':
+                    updateConfig(request.data);
+                    break;
+                default:
+                    break;
             }
        }
     );

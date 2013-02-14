@@ -11,15 +11,57 @@ Extension functions
 本扩展包含以下功能：
 
 * 选中文字自动复制;
-* 选中文字时, shift+c复制选中部分的html源代码;
-* 未选中文字时, ctrl+c以文本格式复制标题与链接, shift+c以html格式复制标题与链接;
+* 复制选中内容的HTML源代码;
+* 复制页面标题与URL地址;
 * 保存最近N个拷贝的内容, 可以自由选择;
 
 This extension has below functions:
 * Copy selected text automatically;
-* Press shift+c to copy html code of selected text;
-* Press ctrl+c to copy title and url in text format, and shift+c to copy in html format;
-* Store recent copy cache, you can select it from the menu;
+* Copy selected html source code;
+* Copy current page's title and URL;
+* Store recent copy cache, you can select it from the toolbar button menu;
+
+Extension usage
+================
+
+中文说明
+--------
+
+当你开启"选中文字自动复制"选项后, 选中文字会自动复制, 如果在选中的情况下按下shift+c则会拷贝当前选中内容的HTML源代码。
+
+未选中任何文字时, 按下ctrl+c键以文本格式复制文章的标题与地址, 默认的格式为:
+
+  Chrome扩展之增强复制功能 - http://kodango.com/copy-extension
+
+未选中文字时，按下shift+c键以HTML格式复制文章的标题与地址，默认的格式为:
+
+  <a href="http://kodango.com/copy-extension" target="_blank">Chrome扩展之增强复制功能</a>
+
+此时, 再次点击工具栏上的图标, 会显示上面复制的内容, 点击列表中的每一项复制, 如果当前在输入框中, 则会自动将选择的内容插入到光标所在的位置。
+
+English Help
+------------
+
+If you select the text, it will be copied automatically by default, you can
+disale this function through the option. If you press shift+c when select text,
+then the html source code will be copied instead.
+
+If you select nothing, press ctrl+c will copy the current page's tile and url
+in text format like `%TITLE% - %URL%`. For example, if you visit google.com
+now:
+
+    Google - https://www.google.com/
+
+If you select nothing, press shift+c will copy the current page's title and url
+in html format like `<a href="%URL%" target="_blank">%TITLE%</a>. So visit
+google.com again, this time will give a different result:
+
+   <a href="https://www.google.com/" target="_blank">Google</a>
+
+Copy Better extension will remember recent N copy record in cache, you can find
+this list through clicking the toolbar icon. Select any copy cache item in the
+list will copy it, and if you are in an editbox, it will paste the selected copy
+cache item in current cursor position.
 
 Extension Settings
 ==================
@@ -27,12 +69,26 @@ Extension Settings
 Copy selected text automatically
 --------------------------------
  
+选中文字时自动复制
+
 Check this option to automatically copy selected text.
 
 Default: checked
 
+Copy selected text in edit box automatically
+--------------------------------------------
+
+在编辑框中选中文字时自动复制
+
+Check this option to automatically copy selected text in an edit box, like text
+input or textarea.
+
+Default: unchecked
+
 Copy title and url (text format, Ctrl+c)
 ----------------------------------------
+
+未选中任何文字时，按下ctrl+c键以文本格式复制文章的标题与地址
 
 Use ctrl+c to copy title and url in text format, the format is defined here. 
 
@@ -40,6 +96,8 @@ Default: %TITLE%\n%URL%
 
 Copy title and url (html format, Shift+c)
 ------------------------------------------
+
+未选中文字时，按下shift+c键以HTML格式复制文章的标题与地址
 
 Use shift+c to copy title and url in html format, the format is defined here.
 

@@ -7,6 +7,11 @@
  */
 var bgWindow = chrome.extension.getBackgroundPage();
 
+function debug(msg)
+{
+    bgWindow.debug.call(this, msg);
+}
+
 /*
  * Shortchut for document.getElementById
  */
@@ -23,6 +28,7 @@ function restoreOptions()
     var config = bgWindow.loadConfig();
 
     $('copyOnSelect').checked = config.copyOnSelect;
+    $('copyOnSelectInBox').checked = config.copyOnSelect && config.copyOnSelectInBox;
     $('copyTitleRawFmt').value = config.copyTitleRawFmt;
     $('copyTitleFmt').value = config.copyTitleFmt;
     $('enableDebug').checked = config.enableDebug;
@@ -38,7 +44,8 @@ function restoreOptions()
 function resetOptions()
 {
     $('copyOnSelect').checked = true;
-    $('copyTitleRawFmt').value = '%TITLE%\n%URL%';
+    $('copyOnSelectInBox').checked = false;
+    $('copyTitleRawFmt').value = '%TITLE% - %URL%';
     $('copyTitleFmt').value = '<a href="%URL%" target="_blank">%TITLE%</a>';
     $('enableDebug').checked = true;
     $('cacheSizeValue').value = 10;
@@ -49,32 +56,53 @@ function resetOptions()
 }
 
 /*
+ * Save the option value
+ */
+function save_config(key, id)
+{
+    var elem;
+
+    id = id || key;
+    elem = $(id);
+
+    if (elem.disabled)
+        return;
+
+    if (elem.tagName == 'TEXTAREA') {
+        bgWindow.set(key, elem.value);
+        debug('Save option, key: ' + key + ', value: ' + elem.value);
+    } else if (elem.tagName == 'INPUT') {
+        switch (elem.type) {
+            case 'checkbox':
+                bgWindow.set(key, elem.checked);
+                debug('Save option, key: ' + key + ', value: ' + elem.checked);
+                break;
+            default:
+                bgWindow.set(key, elem.value);
+                debug('Save option, key: ' + key + ', value: ' + elem.value);
+                break;
+        }
+    } else {
+        debug('Unknown tag ' + elem.tagName + ', id is ' + id);
+    }
+}
+
+/*
  * Save current option settings
  */
 function saveOptions()
 {
-    var copyOnSelect = $('copyOnSelect').checked;
-    bgWindow.set('copyOnSelect', copyOnSelect);
-
-    var copyTitleRawFmt = $('copyTitleRawFmt').value;
-    bgWindow.set('copyTitleRawFmt', copyTitleRawFmt);
-
-    var copyTitleFmt = $('copyTitleFmt').value;
-    bgWindow.set('copyTitleFmt', copyTitleFmt);
-
-    var enableDebug = $('enableDebug').checked;
-    bgWindow.set('enableDebug', enableDebug);
-
-    var storeCacheOnExit = $('storeCacheOnExit').checked;
-    bgWindow.set('storeCacheOnExit', storeCacheOnExit);
-
-    var cacheSize = $('cacheSize').value;
-    bgWindow.set('cacheSize', cacheSize);
-
-    var maxChars = $('maxLineCharsOnPopup').value;
-    bgWindow.set('maxLineCharsOnPopup', maxChars);
+    save_config('copyOnSelect');
+    save_config('copyOnSelectInBox');
+    save_config('copyTitleRawFmt');
+    save_config('copyTitleFmt');
+    save_config('enableDebug');
+    save_config('storeCacheOnExit');
+    save_config('cacheSize');
+    save_config('maxLineCharsOnPopup');
 
     bgWindow.config = bgWindow.loadConfig();
+    bgWindow.updateConfig();
 }
 
 /*
@@ -96,6 +124,8 @@ document.addEventListener('change', function(event) {
 
     if (target.id == 'cacheSize') {
         $('cacheSizeValue').value = target.value;
+    } else if (target.id == 'copyOnSelect') {
+        $('copyOnSelectInBox').disabled = !target.checked;
     }
 }, false);
 
@@ -132,11 +162,13 @@ function displayI18N()
     $('header-text').innerHTML = document.title;
 
     $('feedback').innerHTML = chrome.i18n.getMessage('feedback');
+    $('help').innerHTML = chrome.i18n.getMessage('help');
     $('save').innerHTML = chrome.i18n.getMessage('save');
     $('reset').innerHTML = chrome.i18n.getMessage('reset');
     $('restore').innerHTML = chrome.i18n.getMessage('restore');
 
     $('copyOnSelect-text').innerHTML = chrome.i18n.getMessage('opt_copy_on_select');
+    $('copyOnSelectInBox-text').innerHTML = chrome.i18n.getMessage('opt_copy_on_select_in_box');
     $('copyTitleRawFmt-text').innerHTML = chrome.i18n.getMessage('opt_copy_title_raw_fmt');
     $('copyTitleFmt-text').innerHTML = chrome.i18n.getMessage('opt_copy_title_fmt');
     $('enableDebug-text').innerHTML = chrome.i18n.getMessage('opt_enable_debug');

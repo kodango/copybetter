@@ -33,13 +33,30 @@ function loadConfig()
     return {
         'cacheSize': get('cacheSize', 10),
         'copyOnSelect': get('copyOnSelect', true),
-        'copyTitleRawFmt': get('copyTitleRawFmt', '%TITLE%\n%URL%'),
+        'copyOnSelectInBox': get('copyOnSelectInBox', false),
+        'copyTitleRawFmt': get('copyTitleRawFmt', '%TITLE% - %URL%'),
         'copyTitleFmt': get('copyTitleFmt', '<a href="%URL%" target="_blank">%TITLE%</a>'),
         'enableDebug': get('enableDebug', false),
         'storeCacheOnExit': get('storeCacheOnExit', true),
         'cache': get('cache', []),
         'maxLineCharsOnPopup': get('maxLineCharsOnPopup', 40)
     };
+}
+
+/*
+ * Update configuration
+ */
+function updateConfig()
+{
+    chrome.tabs.query({}, function(tabs) {
+        debug('Send update config message to all tabs');
+
+        for (var i in tabs) {
+            chrome.tabs.sendMessage(tabs[i].id, {
+                command: 'update', data: config
+            });
+        }
+    });
 }
 
 /*

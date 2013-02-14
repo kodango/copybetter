@@ -19,6 +19,10 @@
         "message": "Leave feedback"
     },
 
+    "help": {
+        "message": "Help"
+    },
+
     "save": {
         "message": "Save"
     },
@@ -33,6 +37,10 @@
 
     "opt_copy_on_select": {
         "message": "Copy selected text automatically"
+    },
+
+    "opt_copy_on_select_in_box": {
+        "message": "Copy selected text in edit box automatically"
     },
 
     "opt_copy_title_raw_fmt": {
