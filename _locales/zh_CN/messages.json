@@ -63,10 +63,6 @@
         "message": "剪贴版中保存的缓存个数"
     },
 
-    "opt_max_chars": {
-        "message": "弹出窗口中仅显示复制缓存项内容的前n个字符"
-    },
-
     "opt_show_copy_notification": {
         "message": "复制成功时在窗口右下角显示提示"
     },

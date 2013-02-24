@@ -1,11 +1,11 @@
 body {
     margin: 0; 
-    font-size: 0.8em;
+    font-size: 12px;
 }
 
 #popup {
     width: 300px;
-    padding: 0.4em 0.5em;
+    padding: 10px 8px;
 }
 
 #hints a {
@@ -13,22 +13,27 @@ body {
 }
 
 #hints {
-    padding-bottom: 0.4em;
+    padding-bottom: 5px;
     border-bottom: 1px solid silver;
 }
 
 #recent-cache {
-    padding-top: 0.4em;
+    padding-top: 5px;
 }
 
 #recent-cache ol { 
     padding: 0;
-    margin: 0 0 0 1.5em;
+    margin:0;
 }
 
-.cache-item { }
+li.cache-item {
+    text-overflow: ellipsis;
+    overflow: hidden;
+    white-space: nowrap;
+    list-style-position: inside;
+}
 
-span.selected {
+li.selected {
     color: green;
     font-weight: bold;
 }

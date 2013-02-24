@@ -39,7 +39,6 @@ function loadConfig()
         'enableDebug': get('enableDebug', false),
         'storeCacheOnExit': get('storeCacheOnExit', true),
         'cache': get('cache', []),
-        'maxLineCharsOnPopup': get('maxLineCharsOnPopup', 40),
         'showCopyNotification': get('showCopyNotification', true)
     };
 }

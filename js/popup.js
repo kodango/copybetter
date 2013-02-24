@@ -59,13 +59,9 @@ function generateCacheList()
         li = document.createElement('li'); 
         li.className = "cache-item";
 
-        span = document.createElement('span');
-        span.className = "cache-text";
+        li.textContent = cache[item];
+        li.setAttribute('data-idx', idx++);
 
-        span.textContent = cache[item].substring(0, bgConfig.maxLineCharsOnPopup);
-        span.setAttribute('data-idx', idx++);
-
-        li.appendChild(span);
         ol.appendChild(li);
     }
 
@@ -94,7 +90,7 @@ document.addEventListener('click', function(event) {
         bgCache.length = 0;
         generateCacheList();
         debug('Clear the cache...');
-    } else if (event.target.className == 'cache-text') {
+    } else if (event.target.className == 'cache-item') {
         highlightSelected(event.target);
         bgWindow.doPaste(bgCache[event.target.dataset.idx]);
         debug('Paste cache text to content script');

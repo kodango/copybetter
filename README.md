@@ -120,15 +120,6 @@ Defines the maximum number of copy cache item saved.
 
 Default: 10
 
-Only display first n chars of copy cache item in the popup window
------------------------------------------------------------------
-
-弹出窗口中仅显示复制缓存项内容的前n个字符
-
-Only display first n chars of copy cache item in the popup window opened when click the toolbar button.
-
-Default: 40
-
 Show notification when copy is done
 ----------------------------------------
 
