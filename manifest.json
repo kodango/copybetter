@@ -2,7 +2,7 @@
   "default_locale": "en",
 
   "name": "__MSG_ext_name__",
-  "version": "1.0.3",
+  "version": "1.0.4",
   "manifest_version": 2,
   "description": "__MSG_ext_desc__",
 
@@ -26,6 +26,7 @@
   "content_scripts": [ {
     "all_frames": true,
     "js": [ "/js/copybetter.js" ],
+    "css": [ "/css/copybetter.css" ],
     "matches": [ "http://*/*", "https://*/*" ],
     "run_at": "document_start"
   } ],

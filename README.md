@@ -128,3 +128,12 @@ Only display first n chars of copy cache item in the popup window
 Only display first n chars of copy cache item in the popup window opened when click the toolbar button.
 
 Default: 40
+
+Show notification when copy is done
+----------------------------------------
+
+当拷贝成功时在窗口右下角显示提示
+
+Show notification in the right-bottom corner when the copy is done successfully.
+
+Default: true

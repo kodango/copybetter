@@ -36,6 +36,7 @@ function restoreOptions()
     $('cacheSizeValue').value = config.cacheSize;
     $('storeCacheOnExit').checked = config.storeCacheOnExit;
     $('maxLineCharsOnPopup').value = config.maxLineCharsOnPopup;
+    $('showCopyNotification').checked = config.showCopyNotification;
 }
 
 /*
@@ -51,6 +52,7 @@ function resetOptions()
     $('cacheSizeValue').value = 10;
     $('storeCacheOnExit').checked = true;
     $('maxLineCharsOnPopup').value = 40;
+    $('showCopyNotification').checked = true;
 
     saveOptions();
 }
@@ -100,6 +102,7 @@ function saveOptions()
     save_config('storeCacheOnExit');
     save_config('cacheSize');
     save_config('maxLineCharsOnPopup');
+    save_config('showCopyNotification');
 
     bgWindow.config = bgWindow.loadConfig();
     bgWindow.updateConfig();
@@ -175,6 +178,7 @@ function displayI18N()
     $('storeCacheOnExit-text').innerHTML = chrome.i18n.getMessage('opt_store_cache_on_exit');
     $('cacheSize-text').innerHTML = chrome.i18n.getMessage('opt_cache_size');
     $('maxLineCharsOnPopup-text').innerHTML = chrome.i18n.getMessage('opt_max_chars');
+    $('showCopyNotification-text').innerHTML = chrome.i18n.getMessage('opt_show_copy_notification');
 }
 
 /*

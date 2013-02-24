@@ -70,6 +70,39 @@
     }
 
     /*
+     * Show notification when copied
+     */
+    function showCopyNotification(txt)
+    {
+        var container = document.getElementById('copybetter-status');
+
+        if (container == null) {
+            container = document.createElement('div');
+            container.id = 'copybetter-status';
+            container.className = 'copybetter-bubble';
+            document.body.appendChild(container);
+        }
+
+        container.textContent = txt;
+        container.style.display = 'block';
+
+        setTimeout(hideCopyNotification, 5000);
+    }
+
+    /*
+     * Hide notification box
+     */
+    function hideCopyNotification()
+    {
+        var container = document.getElementById('copybetter-status');
+
+        if (container == null)
+            return;
+
+        container.style.display = 'none';
+    }
+
+    /*
      * Copy non-empty value to clipboard
      */
     function copy(value, mode)
@@ -83,6 +116,10 @@
             command: 'copy',
             data: value,
             mode: mode
+        }, function (response) {
+            if (config.showCopyNotification) {
+                showCopyNotification(response.clipboard);
+            }
         });
         
         debug('Copyied string: ' + value + ', copy mode: ' + mode);

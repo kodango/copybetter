@@ -67,6 +67,10 @@
         "message": "Only display first n chars of copy cache item in the popup window"
     },
 
+    "opt_show_copy_notification": {
+        "message": "Show notification in the right-bottom corner when copy is done"
+    },
+
     "save_notify": {
         "message": "Options have been saved successfully"
     },

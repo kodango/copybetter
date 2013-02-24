@@ -1,0 +1,22 @@
+.copybetter-bubble {
+    padding: 5px 10px;
+    margin: 15px;
+    color: #fff;
+    background: -webkit-gradient(linear, 0 0, 0 100%, from(#2e88c4), to(#075698));
+    border-radius: 8px;
+    font-size: 12px;
+    font-family: sans-serif;
+    height: 24px;
+    line-height: 24px;
+    max-width: 150px;
+    text-overflow:ellipsis;
+    white-space: nowrap;
+    overflow:hidden;
+    opacity: 0.9;
+}
+
+#copybetter-status {
+    position: fixed;
+    right: 0;
+    bottom: 0;
+}
