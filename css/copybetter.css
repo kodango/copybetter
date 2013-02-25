@@ -1,4 +1,4 @@
-.copybetter-bubble {
+#copybetter-status {
     padding: 5px 10px;
     margin: 15px;
     color: #fff;
@@ -13,9 +13,7 @@
     white-space: nowrap;
     overflow:hidden;
     opacity: 0.9;
-}
-
-#copybetter-status {
+    z-index: 10000;
     position: fixed;
     right: 0;
     bottom: 0;

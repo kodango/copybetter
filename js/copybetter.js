@@ -79,7 +79,6 @@
         if (container == null) {
             container = document.createElement('div');
             container.id = 'copybetter-status';
-            container.className = 'copybetter-bubble';
             document.body.appendChild(container);
         }
 
