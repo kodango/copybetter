@@ -33,6 +33,7 @@ function loadConfig()
     return {
         'cacheSize': get('cacheSize', 10),
         'copyOnSelect': get('copyOnSelect', true),
+        'copyOnShiftSelect': get('copyOnShiftSelect', true),
         'copyOnSelectInBox': get('copyOnSelectInBox', false),
         'copyTitleRawFmt': get('copyTitleRawFmt', '%TITLE% - %URL%'),
         'copyTitleFmt': get('copyTitleFmt', '<a href="%URL%" target="_blank">%TITLE%</a>'),

@@ -3,18 +3,18 @@
     margin: 15px;
     color: #fff;
     background: -webkit-gradient(linear, 0 0, 0 100%, from(#2e88c4), to(#075698));
-    border-radius: 8px;
+    border-radius: 4px;
     font-size: 12px;
     font-family: sans-serif;
     height: 24px;
     line-height: 24px;
     max-width: 150px;
-    text-overflow:ellipsis;
+    text-overflow: ellipsis;
     white-space: nowrap;
-    overflow:hidden;
-    opacity: 0.9;
-    z-index: 10000;
+    overflow: hidden;
+    opacity: 0.8;
+    z-index: 100000;
     position: fixed;
     right: 0;
-    bottom: 0;
+    top: 0;
 }

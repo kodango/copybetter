@@ -28,7 +28,10 @@ function restoreOptions()
     var config = bgWindow.loadConfig();
 
     $('copyOnSelect').checked = config.copyOnSelect;
+    $('copyOnShiftSelect').checked = config.copyOnShiftSelect;
+    $('copyOnShiftSelect').disabled = config.copyOnSelect;
     $('copyOnSelectInBox').checked = config.copyOnSelect && config.copyOnSelectInBox;
+    $('copyOnSelectInBox').disabled = !config.copyOnSelect;
     $('copyTitleRawFmt').value = config.copyTitleRawFmt;
     $('copyTitleFmt').value = config.copyTitleFmt;
     $('enableDebug').checked = config.enableDebug;
@@ -44,6 +47,7 @@ function restoreOptions()
 function resetOptions()
 {
     $('copyOnSelect').checked = true;
+    $('copyOnShiftSelect').checked = true;
     $('copyOnSelectInBox').checked = false;
     $('copyTitleRawFmt').value = '%TITLE% - %URL%';
     $('copyTitleFmt').value = '<a href="%URL%" target="_blank">%TITLE%</a>';
@@ -93,6 +97,7 @@ function save_config(key, id)
 function saveOptions()
 {
     save_config('copyOnSelect');
+    save_config('copyOnShiftSelect');
     save_config('copyOnSelectInBox');
     save_config('copyTitleRawFmt');
     save_config('copyTitleFmt');
@@ -126,6 +131,7 @@ document.addEventListener('change', function(event) {
         $('cacheSizeValue').value = target.value;
     } else if (target.id == 'copyOnSelect') {
         $('copyOnSelectInBox').disabled = !target.checked;
+        $('copyOnShiftSelect').disabled = target.checked;
     }
 }, false);
 
@@ -168,6 +174,7 @@ function displayI18N()
     $('restore').innerHTML = chrome.i18n.getMessage('restore');
 
     $('copyOnSelect-text').innerHTML = chrome.i18n.getMessage('opt_copy_on_select');
+    $('copyOnShiftSelect-text').innerHTML = chrome.i18n.getMessage('opt_copy_on_shift_select');
     $('copyOnSelectInBox-text').innerHTML = chrome.i18n.getMessage('opt_copy_on_select_in_box');
     $('copyTitleRawFmt-text').innerHTML = chrome.i18n.getMessage('opt_copy_title_raw_fmt');
     $('copyTitleFmt-text').innerHTML = chrome.i18n.getMessage('opt_copy_title_fmt');

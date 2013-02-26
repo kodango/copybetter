@@ -74,13 +74,23 @@ Check this option to automatically copy selected text.
 
 Default: checked
 
+Copy selected text only when shift key is pressed
+-------------------------------------------------
+
+当选中文字的同时按下shift键才复制文本, 仅当"选中文字时自动复制"未选中时才生效
+
+This option only takes effect when "Copy selected text automatically" option is unchecked.
+
+Default: checked
+
 Copy selected text in edit box automatically
 --------------------------------------------
 
-在编辑框中选中文字时自动复制
+在编辑框中选中文字时自动复制, 仅当"选中文字时自动复制"选中时才生效
 
-Check this option to automatically copy selected text in an edit box, like text
-input or textarea.
+Check this option to automatically copy selected text in an edit box, like text input
+or textarea. This option only takes effect when "Copy selected text automatically"
+option is checked.
 
 Default: unchecked
 

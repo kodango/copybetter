@@ -165,7 +165,7 @@
      */
     function onmouseup(event)
     {
-        if (!config.copyOnSelect)
+        if (!config.copyOnSelect && !(config.copyOnShiftSelect&&event.shiftKey))
             return;
 
         var value = "";

@@ -39,6 +39,10 @@
         "message": "Copy selected text automatically"
     },
 
+    "opt_copy_on_shift_select": {
+        "message": "Copy selected text only when shift key is pressed"
+    },
+
     "opt_copy_on_select_in_box": {
         "message": "Copy selected text in edit box automatically"
     },
