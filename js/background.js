@@ -84,6 +84,9 @@ function doCopy(str, mode)
 
     var sandbox = document.getElementById('sandbox');
 
+    /* Trim leading and trailing newlines */
+    str = str.replace(/^\n+|\n+$/, '');
+
     debug('Copy string: ' + str + ', copy mode: ' + mode);
 
     if (cache.length == 2*config.cacheSize) {
