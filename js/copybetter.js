@@ -13,6 +13,9 @@
     /* Real debug function */
     var debug = _emptyFunc;
 
+    var TRANSPARENT_COLOR = 'rgba(0, 0, 0, 0)';
+    var DELTA = 15;
+
     /*
      * Update config to new one
      */
@@ -30,30 +33,161 @@
     }
 
     /*
-     * Get selected html content.
+     * Get the value of css attribute
      */
-    function html(sel) 
+    function css(node, name)
+    {
+        var style = window.getComputedStyle(node, null);
+
+        return style.getPropertyValue(name);
+    }
+
+    /*
+     * Get the actual background color value
+     */
+    function getActualBackgroundColor(node)
+    {
+        var bg = TRANSPARENT_COLOR;
+
+        while (node) {
+            bg = css(node, 'background-color');
+
+            if (bg != TRANSPARENT_COLOR)
+                break;
+
+            if (node == document.body)
+                break;
+
+            node = node.parentNode;
+        }
+
+        return bg;
+    }
+
+    /*
+     * Get the color value
+     */
+    function colorValue(c)
+    {
+        var regex=/rgba?\((\d+),\s*(\d+),\s*(\d+)(?:,\s*(\d)+)?\)/;
+        var m = c.match(regex);
+
+        if (m) {
+            if (m[4] === undefined)
+                m[4] = 1;
+
+            return [m[1], m[2], m[3], m[4]]
+        } else {
+            return [0, 0, 0, 0]
+        }
+    }
+
+    /*
+     * Check whether two value are approximately equal
+     */
+    function approxColor(lhs, rhs)
+    {
+        var l_c = colorValue(lhs), r_c = colorValue(rhs);
+        var i;
+
+        for (i = 0; i < 3; i++) {
+            if (Math.abs(l_c[i] - r_c[i]) > DELTA)
+                return false;
+        }
+
+        return true;
+    }
+
+    /*
+     * Check whether the node is hidden
+     */
+    function isHidden(node)
+    {
+        /* display:none or visibility:hidden */
+        if (css(node, 'display') == 'none' || css(node, 'visibility') == 'hidden')
+            return true;
+
+        /* font size is zero, so we can't see it */
+        if (css(node, 'fontSize') == 0 || css(node, 'fontSize') == '0px')
+            return true;
+
+        var bg = getActualBackgroundColor(node);
+        var color = css(node, 'color');
+
+        if (bg == TRANSPARENT_COLOR) { // Actual bg color is transparent (default)
+            /* but node color is white */
+            if (approxColor(color, 'rgb(255, 255, 255)'))
+                return true;
+        } else {
+            /* Bg color and color are the same */
+            if (approxColor(color, bg))
+                return true;
+        }
+
+        return false;
+    }
+
+    /*
+     * Remove the hidden childrens of root element
+     */
+    function removeHidden(rootElement)
+    {
+        if (rootElement.nodeType == document.TEXT_NODE)
+            return;
+
+        var nodes = rootElement.querySelectorAll('div,p,span,font');
+        var i, node, style, len = nodes.length;
+
+        for (i = 0; i < len; i++) {
+            node = nodes[i];
+
+            if (isHidden(node)) {
+                debug('Remove hidden node ' + node);
+                node.parentNode.removeChild(node);
+            }
+        }
+    }
+
+    /*
+     * Get the selected content
+     */
+    function getSelectedContent(sel, textOnly)
     {
         var div = document.createElement('div');
         var range = sel.getRangeAt(0);
 
-        while(range.startContainer.nodeType == document.TEXT_NODE
-              || range.startContainer.childNodes.length == 1)
-            range.setStartBefore(range.startContainer);
+        if (!textOnly) { // Expand the selection if want to copy html code
+            while(range.startContainer.nodeType == document.TEXT_NODE
+                  || range.startContainer.childNodes.length == 1)
+                range.setStartBefore(range.startContainer);
 
-        while(range.endContainer.nodeType == document.TEXT_NODE
-              || range.endContainer.childNodes.length == 1)
-            range.setEndAfter(range.endContainer);
+            while(range.endContainer.nodeType == document.TEXT_NODE
+                  || range.endContainer.childNodes.length == 1)
+                range.setEndAfter(range.endContainer);
+        }
 
-        div.appendChild(range.cloneContents());
+        /* Remove hidden text in the selection content */
+        removeHidden(range.commonAncestorContainer);
 
-        return div.innerHTML;
+        if (textOnly) {
+            return sel.toString();
+        } else {
+            range = sel.getRangeAt(0);
+            div.appendChild(range.cloneContents());
+
+            return div.innerHTML;
+        }
     }
+
+    /*
+     * Get selected html content.
+     */
+    function html(sel) { return getSelectedContent(sel, false); }
 
     /* 
      * Get selected text content
      */
-    function text(sel) { return sel.toString(); }
+    function text(sel) { return getSelectedContent(sel, true); }
 
     /*
      * Check whether any text is selected
