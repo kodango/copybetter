@@ -14,12 +14,14 @@ Extension functions
 * 复制选中内容的HTML源代码;
 * 复制页面标题与URL地址;
 * 保存最近N个拷贝的内容, 可以自由选择;
+* 清除网页隐藏文字;
 
 This extension has below functions:
 * Copy selected text automatically;
 * Copy selected html source code;
 * Copy current page's title and URL;
 * Store recent copy cache, you can select it from the toolbar button menu;
+* Remove hide text in the web when copy;
 
 Extension usage
 ================
