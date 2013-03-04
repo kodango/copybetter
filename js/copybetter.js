@@ -200,7 +200,8 @@
     function isEditBox(elem) 
     {
         return (elem.tagName == 'INPUT' && elem.type == "text")
-            || elem.tagName == 'TEXTAREA';
+            || elem.contentEditable == 'true' // contenteditable is true && tag name limit??
+            || elem.tagName == 'TEXTAREA' ;
     }
 
     /*
@@ -305,12 +306,18 @@
         var value = "";
         var sel = window.getSelection();
 
-        if (config.copyOnSelectInBox && isEditBox(event.target)) {
+        if (isEditBox(event.target)) {  // if in edit box
+            if (!config.copyOnSelectInBox)
+                return;
+
             value = event.target.value;
             value = value.substring(event.target.selectionStart,
                     event.target.selectionEnd);
             copy(value);
-        } else if (isSelected(sel)) {
+        } else {
+            if (!isSelected(sel))
+                return;
+
             value = text(sel);
             copy(value);
         }
