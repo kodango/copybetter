@@ -86,7 +86,7 @@ function doCopy(str, mode)
 
     /* Trim leading and trailing newlines */
     str = str.replace(/^\n+|\n+$/, '');
-    str = str.replace(/\x21/, ' ');
+    str = str.replace(/\xa0/, ' ');
 
     debug('Copy string: ' + str + ', copy mode: ' + mode);
 
