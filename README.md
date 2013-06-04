@@ -5,6 +5,9 @@ Copy Better
 
 A google chrome extension to make copy better.
 
+[Google Chrome Web Store
+Download Link](https://chrome.google.com/webstore/detail/copy-better/hpihdokfdmmghaclaojfpmbckkhjgebc)
+
 Extension functions
 ===================
 
