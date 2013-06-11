@@ -260,9 +260,9 @@
     }
 
     /*
-     * Click event handler
+     * Keydown event handler
      */
-    function onclick(event)
+    function onkeydown(event)
     {
         if (isEditBox(event.target))
             return;
@@ -367,6 +367,6 @@
        }
     );
 
-    window.addEventListener('keydown', onclick, false);
+    window.addEventListener('keydown', onkeydown, false);
     window.addEventListener('mouseup', onmouseup, false);
 })();
