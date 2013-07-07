@@ -15,14 +15,14 @@ Extension functions
 
 * 选中文字自动复制;
 * 复制选中内容的HTML源代码;
-* 复制页面标题与URL地址;
+* 复制当前或者所有标签的标题与地址;
 * 保存最近N个拷贝的内容, 可以自由选择;
 * 清除网页隐藏文字;
 
 This extension has below functions:
 * Copy selected text automatically;
 * Copy selected html source code;
-* Copy current page's title and URL;
+* Copy title and URL of current tab or all tabs;
 * Store recent copy cache, you can select it from the toolbar button menu;
 * Remove hide text in the web when copy;
 
@@ -33,15 +33,27 @@ Extension usage
 
 当你开启"选中文字自动复制"选项后, 选中文字会自动复制, 如果在选中的情况下按下shift+c则会拷贝当前选中内容的HTML源代码。
 
-未选中任何文字时, 按下ctrl+c键以文本格式复制文章的标题与地址, 默认的格式为:
+未选中任何文字时, 按下ctrl+c键以文本格式复制当前标签的标题与地址, 默认的格式为:
 
-    Chrome扩展之增强复制功能 - http://kodango.com/copy-extension
+    Chrome扩展之增强复制 - http://kodango.com/copybetter-extension
 
-未选中文字时，按下shift+c键以HTML格式复制文章的标题与地址，默认的格式为:
+未选中任何文字时, 按下ctrl+alt+c键以文本格式复制所有标签 的标题与地址, 默认的格式为:
 
-    <a href="http://kodango.com/copy-extension" target="_blank">Chrome扩展之增强复制功能</a>
+    dangoakachan/copybetter - https://github.com/dangoakachan/copybetter
+    Chrome扩展之增强复制 - http://kodango.com/copybetter-extension
+    扩展程序 - chrome://extensions/
 
-此时, 再次点击工具栏上的图标, 会显示上面复制的内容, 点击列表中的每一项复制, 如果当前在输入框中, 则会自动将选择的内容插入到光标所在的位置。
+未选中文字时，按下shift+c键以HTML格式复制当前标签的标题与地址，默认的格式为:
+
+    <a href="http://kodango.com/copybetter-extension" title="Chrome扩展之增强复制" target="_blank">Chrome扩展之增强复制</a>
+
+未选中文字时，按下shift+alt+c键以HTML格式复制所有标签的标题与地址，默认的格式为:
+
+    <a href="https://github.com/dangoakachan/copybetter" title="dangoakachan/copybetter" target="_blank">dangoakachan/copybetter</a>
+    <a href="http://kodango.com/copybetter-extension" title="Chrome扩展之增强复制" target="_blank">Chrome扩展之增强复制</a>
+    <a href="chrome://extensions/" title="扩展程序" target="_blank">扩展程序</a>
+
+此时, 再次点击工具栏上的图标, 会显示上面复制的内容, 点击列表中的每一项复制。 如果当前在输入框中, 则会自动将选择的内容插入到光标所在的位置。
 
 English Help
 ------------
@@ -50,17 +62,28 @@ If you select the text, it will be copied automatically by default, you can
 disable this function through the option. If you press shift+c when select text,
 then the html source code will be copied instead.
 
-If you select nothing, press ctrl+c will copy the current page's tile and url
+If you select nothing, press ctrl+c will copy the current tab's tile and url
 in text format like `%TITLE% - %URL%`. For example, if you visit google.com
 now:
 
     Google - https://www.google.com/
 
-If you select nothing, press shift+c will copy the current page's title and url
-in html format like `<a href="%URL%" target="_blank">%TITLE%</a>. So visit
-google.com again, this time will give a different result:
+If you select nothing, press ctrl+alt+c will copy the all tabs' tile and url
+in a list of `%TITLE% - %URL%`. For example, if you open google and twitter:
+
+    Google - https://www.google.com/
+    Twitter - https://twitter.com/
+
+If you select nothing, press shift+c will copy the current tab's title and url
+in html format like `<a href="%URL%" target="_blank">%TITLE%</a>:
 
     <a href="https://www.google.com/" target="_blank">Google</a>
+
+If you select nothing, press shift+c will copy all tabs' title and url in a list
+of  `<a href="%URL%" target="_blank">%TITLE%</a>:
+
+    <a href="https://www.google.com/" title="Google" target="_blank">Google</a>
+    <a href="https://twitter.com/" title="Twitter" target="_blank">Twitter</a>
 
 Copy Better extension will remember recent N copy record in cache, you can find
 this list through clicking the toolbar icon. Select any copy cache item in the
