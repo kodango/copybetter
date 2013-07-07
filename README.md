@@ -79,8 +79,8 @@ in html format like `<a href="%URL%" target="_blank">%TITLE%</a>:
 
     <a href="https://www.google.com/" target="_blank">Google</a>
 
-If you select nothing, press shift+c will copy all tabs' title and url in a list
-of  `<a href="%URL%" target="_blank">%TITLE%</a>:
+If you select nothing, press shift+alt+c will copy all tabs' title and url in a
+list of `<a href="%URL%" target="_blank">%TITLE%</a>:
 
     <a href="https://www.google.com/" title="Google" target="_blank">Google</a>
     <a href="https://twitter.com/" title="Twitter" target="_blank">Twitter</a>
