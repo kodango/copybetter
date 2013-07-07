@@ -40,7 +40,7 @@
     },
 
     "opt_copy_on_shift_select": {
-        "message": "Copy selected text only when shift key is pressed"
+        "message": "Copy selected text only when SHIFT key is pressed"
     },
 
     "opt_copy_on_select_in_box": {
@@ -48,11 +48,11 @@
     },
 
     "opt_copy_title_raw_fmt": {
-        "message": "Copy title and url (text format, Ctrl+c)"
+        "message": "Copy title and url (text format, CTRL+C)"
     },
 
     "opt_copy_title_fmt": {
-        "message": "Copy title and url (html format, Shift+c)"
+        "message": "Copy title and url (html format, SHIFT+C)"
     },
 
     "opt_enable_debug": {
@@ -68,7 +68,7 @@
     },
 
     "opt_show_copy_notification": {
-        "message": "Show notification in the right-bottom corner when copy is done"
+        "message": "Show notification in the right-top corner when copy is done"
     },
 
     "save_notify": {

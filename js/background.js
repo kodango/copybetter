@@ -26,17 +26,28 @@ function get(key, def)
 }
 
 /*
+ * Clean options
+ */
+function clearConfig()
+{
+    localStorage.clear();
+}
+
+/*
  * Load configuration from local
  */
-function loadConfig()
+function loadConfig(reset)
 {
+    if (reset)
+        clearConfig();
+
     return {
         'cacheSize': get('cacheSize', 10),
         'copyOnSelect': get('copyOnSelect', true),
         'copyOnShiftSelect': get('copyOnShiftSelect', true),
         'copyOnSelectInBox': get('copyOnSelectInBox', false),
         'copyTitleRawFmt': get('copyTitleRawFmt', '%TITLE% - %URL%'),
-        'copyTitleFmt': get('copyTitleFmt', '<a href="%URL%" target="_blank">%TITLE%</a>'),
+        'copyTitleFmt': get('copyTitleFmt', '<a href="%URL%" title="%TITLE%" target="_blank">%TITLE%</a>'),
         'enableDebug': get('enableDebug', false),
         'storeCacheOnExit': get('storeCacheOnExit', true),
         'cache': get('cache', []),
@@ -77,61 +88,110 @@ var cache = config.cache;
 /*
  * Do real copy work
  */
-function doCopy(str, mode)
+function doCopy(str, noCache)
 {
-    if (str.match(/^(\s|\n)*$/) != null)
-        return;
-
     var sandbox = document.getElementById('sandbox');
 
-    /* Trim leading and trailing newlines */
-    str = str.replace(/^\n+|\n+$/, '');
-    str = str.replace(/\xa0/g, ' ');
+    noCache = noCache || false;
 
-    debug('Copy string: ' + str + ', copy mode: ' + mode);
-
-    if (cache.length == 2*config.cacheSize) {
-        debug('Cache space is full, re-allocate it');
-        cache = cache.slice(config.cacheSize, 2*config.cacheSize);
-    }
-
-    if (mode == 'override')
-        cache[cache.length - 1] = str;
-    else if (mode == 'normal' && cache[cache.length - 1] != str)
-        cache.push(str);
-    else
-        debug('Skip the other modes, do not add to cache');
+    debug('Copy string: ' + str + ', no cache: ' + noCache);
 
     sandbox.value = str;
     sandbox.select();
     document.execCommand('copy');
     sandbox.value = '';
+
+    /* Show copy notification */
+    if (config.showCopyNotification) {
+        chrome.tabs.query(
+            {
+                'active': true,
+                'windowId': chrome.windows.WINDOW_ID_CURRENT
+            },
+
+            function(tabs) {
+                debug('Send copy response to [' + tabs[0].title + ']');
+                chrome.tabs.sendMessage(tabs[0].id, {
+                    command: 'copy-notify', data: str
+                });
+            }
+        );
+    }
+
+    /* Don't cache current copied string */
+    if (noCache)
+        return;
+
+    /* Re-allocate cache space */
+    if (cache.length == 2*config.cacheSize) {
+        debug('Cache space is full, re-allocate it');
+        cache = cache.slice(config.cacheSize, 2*config.cacheSize);
+    }
+
+    /* Push current copied string to cache */
+    if (cache[cache.length - 1] != str)
+        cache.push(str);
+}
+
+/* Copy string to clipboard */
+function copy(str, mode)
+{
+    if (str.match(/^(\s|\n)*$/) != null)
+        return;
+
+    if (mode == 'cur-tau') {
+        chrome.tabs.query(
+            {'active': true, 'windowId': chrome.windows.WINDOW_ID_CURRENT},
+            function (tabs) {
+                var url = tabs[0].url;
+                var title = tabs[0].title;
+
+                str = str.replace(/%TITLE%/g, title).replace(/%URL%/g, url);
+                doCopy(str)
+            }
+        );
+    } else if (mode == 'all-tau') {
+        chrome.tabs.query(
+            {'windowId': chrome.windows.WINDOW_ID_CURRENT},
+            function (tabs) {
+                var url, title, value = "";
+
+                for (var i in tabs) {
+                    url = tabs[i].url;
+                    title = tabs[i].title;
+
+                    value += str.replace(/%TITLE%/g, title)
+                            .replace(/%URL%/g, url) + '\n';
+                }
+
+                str = value;
+                doCopy(str);
+            }
+        );
+    } else {
+        /* Trim leading and trailing newlines */
+        str = str.replace(/^\n+|\n+$/, '');
+        str = str.replace(/\xa0/g, ' ');
+
+        if (mode == 'no-cache')
+            doCopy(str, true); // no cache
+        else
+            doCopy(str, false); // with cache
+    }
 }
 
 /*
- * Do real past work
+ * Paste string to content scripts
  */
-function doPaste(str)
+function paste(str)
 {   
-    if (str == undefined || str.match(/^(\s|\n)*$/) != null) {
-        var sandbox = document.getElementById('sandbox');
-
-        sandbox.value = '';
-        sandbox.select();
-        document.execCommand('paste');
-        str = sandbox.value;
-        sandbox.value = '';
-
-        debug('Paste from clipboard: ' + str);
-    } else {
-        doCopy(str, 'skip');
-        debug('Paste from string: ' + str);
-    }
+    debug('Paste from string: ' + str);
+    copy(str, 'no-cache');
 
     chrome.tabs.query(
         {
-            'active':true,
-            'windowId':chrome.windows.WINDOW_ID_CURRENT
+            'active': true,
+            'windowId': chrome.windows.WINDOW_ID_CURRENT
         },
 
         function(tabs) {
@@ -154,7 +214,7 @@ chrome.extension.onMessage.addListener(
         switch (request.command) {
             case 'copy':
                 debug('Request to copy string from content script');
-                doCopy(request.data, request.mode);
+                copy(request.data, request.mode);
                 sendResponse({'clipboard': request.data});
                 break;
             case 'load':

@@ -172,7 +172,7 @@
         if (textOnly) {
             return sel.toString();
         } else {
-            range = sel.getRangeAt(0);
+            //range = sel.getRangeAt(0);
             div.appendChild(range.cloneContents());
 
             return div.innerHTML;
@@ -244,19 +244,16 @@
         if (value.match(/^(\s|\n)*$/) != null)
             return;
 
-        mode = mode || 'normal';
+        mode = mode || 'default';
+        debug('Copyied string: ' + value + ', copy mode: ' + mode);
 
         chrome.extension.sendMessage({
             command: 'copy',
             data: value,
             mode: mode
         }, function (response) {
-            if (config.showCopyNotification) {
-                showCopyNotification(response.clipboard);
-            }
+            // do nothing
         });
-        
-        debug('Copyied string: ' + value + ', copy mode: ' + mode);
     }
 
     /*
@@ -278,19 +275,22 @@
         else
             return;
 
-        if (!isSelected(sel)) {
+        debug('Raw format: ' + raw);
+
+        if (!isSelected(sel)) { // Copy title and url if no text selected
             if (raw) {
-                value = config.copyTitleRawFmt.replace('%TITLE%', document.title)
-                    .replace('%URL%', location.href);
+                value = config.copyTitleRawFmt;
             } else {
-                value = config.copyTitleFmt.replace('%TITLE%', document.title)
-                    .replace('%URL%', location.href);
+                value = config.copyTitleFmt;
             }
 
-            copy(value);
-        } else {
+            /* 
+             * Copy all tabs's url and title if alt key is pressed
+             */
+            copy(value, event.altKey == true ? 'all-tau' : 'cur-tau')
+        } else { // Copy selected text only
             value = raw ? text(sel) : html(sel);
-            copy(value, config.copyOnSelect === true ? 'override' : 'normal');
+            copy(value);
             sel.removeAllRanges();
         }
     }
@@ -342,9 +342,9 @@
         if (isEditBox(target)) {
             target.value = target.value.substring(0, target.selectionStart) + 
                 str + target.value.substring(target.selectionEnd);
-            debug('Paste string: ' + str);
+            debug('Paste string from cache: ' + str);
         } else {
-            debug('Copy string: ' + str);
+            debug('Copy string from cache: ' + str);
         }
     }
 
@@ -361,6 +361,8 @@
                 case 'update':
                     updateConfig(request.data);
                     break;
+                case 'copy-notify':
+                    showCopyNotification(request.data);
                 default:
                     break;
             }

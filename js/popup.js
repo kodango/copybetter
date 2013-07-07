@@ -92,7 +92,7 @@ document.addEventListener('click', function(event) {
         debug('Clear the cache...');
     } else if (event.target.className == 'cache-item') {
         highlightSelected(event.target);
-        bgWindow.doPaste(bgCache[event.target.dataset.idx]);
+        bgWindow.paste(bgCache[event.target.dataset.idx]);
         debug('Paste cache text to content script');
     } else if (event.target.id == "option") {
         chrome.tabs.create({'active':true, 'url': 'options.html'});

@@ -21,11 +21,11 @@ function $(id)
 }
 
 /*
- * Restore the option settings saved at the last time
+ * Intialize the option settings
  */
-function restoreOptions()
+function initOptions(reset)
 {
-    var config = bgWindow.loadConfig();
+    var config = bgWindow.loadConfig(reset);
 
     $('copyOnSelect').checked = config.copyOnSelect;
     $('copyOnShiftSelect').checked = config.copyOnShiftSelect;
@@ -42,20 +42,19 @@ function restoreOptions()
 }
 
 /*
+ * Restore the option settings saved at the last time
+ */
+function restoreOptions()
+{
+    initOptions(false);
+}
+
+/*
  * Reset the option settings to default
  */
 function resetOptions()
 {
-    $('copyOnSelect').checked = true;
-    $('copyOnShiftSelect').checked = true;
-    $('copyOnSelectInBox').checked = false;
-    $('copyTitleRawFmt').value = '%TITLE% - %URL%';
-    $('copyTitleFmt').value = '<a href="%URL%" target="_blank">%TITLE%</a>';
-    $('enableDebug').checked = true;
-    $('cacheSizeValue').value = 10;
-    $('storeCacheOnExit').checked = true;
-    $('showCopyNotification').checked = true;
-
+    initOptions(true);
     saveOptions();
 }
 

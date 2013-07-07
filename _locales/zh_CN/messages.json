@@ -40,7 +40,7 @@
     },
 
     "opt_copy_on_shift_select": {
-        "message": "当选中文字的同时按下shift键才复制文本"
+        "message": "当选中文字的同时按下 SHIFT 键才复制文本"
     },
 
     "opt_copy_on_select_in_box": {
@@ -48,11 +48,11 @@
     },
 
     "opt_copy_title_raw_fmt": {
-        "message": "复制标签标题和地址 (文本格式, Ctrl+c)"
+        "message": "复制标签标题和地址 (文本格式, CTRL+C)"
     },
 
     "opt_copy_title_fmt": {
-        "message": "复制标签标题和地址 (HTML格式, Shift+c)"
+        "message": "复制标签标题和地址 (HTML格式, SHIFT+C)"
     },
 
     "opt_enable_debug": {
@@ -68,7 +68,7 @@
     },
 
     "opt_show_copy_notification": {
-        "message": "复制成功时在窗口右下角显示提示"
+        "message": "复制成功时在窗口右上角显示提示"
     },
 
     "save_notify": {
@@ -76,11 +76,11 @@
     },
 
     "reset_notify": {
-        "message": "选项已经还原成上次保存的设置"
+        "message": "选项已经重置成初始设置"
     },
 
     "restore_notify": {
-        "message": "选项已经重置成初始设置"
+        "message": "选项已经还原成上次保存的设置"
     },
 
     "empty_copy_cache_hint": {
