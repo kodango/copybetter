@@ -266,7 +266,7 @@
 
         var raw = true;
         var value = "";
-        var sel = window.getSelection();
+        var sel = event.view.getSelection();
 
         if (event.shiftKey && event.keyCode == 67) /* Shift + c */
             raw = false;
@@ -304,7 +304,7 @@
             return;
 
         var value = "";
-        var sel = window.getSelection();
+        var sel = event.view.getSelection();
 
         if (isEditBox(event.target)) {  // if in edit box
             if (!config.copyOnSelectInBox)
@@ -369,6 +369,32 @@
        }
     );
 
-    window.addEventListener('keydown', onkeydown, false);
-    window.addEventListener('mouseup', onmouseup, false);
+    document.addEventListener('keydown', onkeydown, false);
+    document.addEventListener('mouseup', onmouseup, false);
+
+    /*
+     * Bind events to loaded iframes
+     */
+    document.addEventListener('load', function (event) {
+        if (event.target.tagName != 'IFRAME')
+            return;
+
+        var iframe = event.target;
+        var iframe_url = iframe.src, iframe_origin;
+
+        if (iframe_url != '') { // stop cross origin access
+            iframe_origin = iframe_url.match(/^.+:\/\/.[^/]+/)[0];
+
+            if (iframe_origin != location.origin)
+                return;
+        }
+
+        var doc = iframe.contentDocument;
+
+        if (doc == null)
+            return;
+
+        doc.addEventListener('keydown', onkeydown, false);
+        doc.addEventListener('mouseup', onmouseup, false);
+    }, true)
 })();
