@@ -93,5 +93,9 @@
 
     "option": {
         "message": "设置"
+    },
+
+    "notification_title": {
+        "message": "增强复制通知"
     }
 }

@@ -103,19 +103,16 @@ function doCopy(str, noCache)
 
     /* Show copy notification */
     if (config.showCopyNotification) {
-        chrome.tabs.query(
-            {
-                'active': true,
-                'windowId': chrome.windows.WINDOW_ID_CURRENT
-            },
+        var options = {
+            type: 'basic', message: str,
+            iconUrl: 'img/icon-32.png',
+            title: chrome.i18n.getMessage("notification_title"),
+        };
 
-            function(tabs) {
-                debug('Send copy response to [' + tabs[0].title + ']');
-                chrome.tabs.sendMessage(tabs[0].id, {
-                    command: 'copy-notify', data: str
-                });
-            }
-        );
+        chrome.notifications.create('copy-notify', options, function () {});
+        setTimeout(function() {
+            chrome.notifications.clear('copy-notify', function () {});
+        }, 3000);
     }
 
     /* Don't cache current copied string */
@@ -205,6 +202,7 @@ function paste(str)
 
     return str;
 }
+
 
 /*
  * Message passing between content script and backgroud page

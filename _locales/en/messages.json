@@ -93,5 +93,9 @@
 
     "option": {
         "message": "Option"
+    },
+
+    "notification_title": {
+        "message": "Copy Better Notification"
     }
 }

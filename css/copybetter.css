@@ -1,8 +1,10 @@
 #copybetter-status {
+    border: 1px solid #d8d8d8;
     padding: 5px 10px;
     margin: 15px;
-    color: #fff;
+    color: #000;
     background: -webkit-gradient(linear, 0 0, 0 100%, from(#2e88c4), to(#075698));
+    background: -webkit-linear-gradient(left, rgba(255,255,255,1) 0%, rgba(246,246,246,1) 47%, rgba(237,237,237,1) 100%);
     border-radius: 4px;
     font-size: 12px;
     font-family: sans-serif;
@@ -12,7 +14,7 @@
     text-overflow: ellipsis;
     white-space: nowrap;
     overflow: hidden;
-    opacity: 0.8;
+    opacity: 0.9;
     z-index: 2147483647;
     position: fixed;
     right: 0;

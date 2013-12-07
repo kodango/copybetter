@@ -55,7 +55,8 @@
             if (bg != TRANSPARENT_COLOR)
                 break;
 
-            if (node == document.body)
+            // Consider the frames, do not use document.body
+            if (node == node.ownerDocument.body)
                 break;
 
             node = node.parentNode;
@@ -205,38 +206,6 @@
     }
 
     /*
-     * Show notification when copied
-     */
-    function showCopyNotification(txt)
-    {
-        var container = document.getElementById('copybetter-status');
-
-        if (container == null) {
-            container = document.createElement('div');
-            container.id = 'copybetter-status';
-            document.body.appendChild(container);
-        }
-
-        container.textContent = txt;
-        container.style.display = 'block';
-
-        setTimeout(hideCopyNotification, 5000);
-    }
-
-    /*
-     * Hide notification box
-     */
-    function hideCopyNotification()
-    {
-        var container = document.getElementById('copybetter-status');
-
-        if (container == null)
-            return;
-
-        container.style.display = 'none';
-    }
-
-    /*
      * Copy non-empty value to clipboard
      */
     function copy(value, mode)
@@ -361,8 +330,6 @@
                 case 'update':
                     updateConfig(request.data);
                     break;
-                case 'copy-notify':
-                    showCopyNotification(request.data);
                 default:
                     break;
             }

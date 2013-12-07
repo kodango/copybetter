@@ -2,7 +2,7 @@
   "default_locale": "en",
 
   "name": "__MSG_ext_name__",
-  "version": "1.1.1",
+  "version": "1.1.2",
   "manifest_version": 2,
   "description": "__MSG_ext_desc__",
 
@@ -38,7 +38,7 @@
   },
 
   "permissions": [
-      "https://*/*", "http://*/*", "clipboardWrite", "tabs"
+      "https://*/*", "http://*/*", "clipboardWrite", "tabs", "notifications"
   ],
 
   "content_security_policy": "script-src 'self'; object-src 'self'"
