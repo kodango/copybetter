@@ -154,7 +154,7 @@ The maximum number of copy cache item
 
 剪贴版中保存的缓存个数
 
-Defines the maximum number of copy cache item saved.
+Defines the maximum number of copy cache item saved, value must be between 10 and 500.
 
 Default: 10
 
