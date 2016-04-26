@@ -352,7 +352,7 @@
         var container = document.createElement('div');
 
         container.id = 'copybetter_container';
-        document.body.appendChild(container);
+        return document.body.appendChild(container);
     }
 
     function hide_message_box()
@@ -366,6 +366,9 @@
     function show_message_box(str)
     {
         var container = document.getElementById('copybetter_container');
+
+        if (!container)
+            container = create_message_box();
 
         // Clear the timer if exist
         clearTimeout(timer);
@@ -399,11 +402,6 @@
 
         if (doc == null)
             return;
-
-        // Create the message box if need
-        if (config.showCopyNotification) {
-            create_message_box();
-        }
 
         doc.addEventListener('keydown', onkeydown, false);
         doc.addEventListener('mouseup', onmouseup, false);
