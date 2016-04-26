@@ -109,7 +109,7 @@
             return true;
 
         /* font size is zero, so we can't see it */
-        if (css(node, 'fontSize') == 0 || css(node, 'fontSize') == '0px')
+        if (css(node, 'font-size') == 0 || css(node, 'font-size') == '0px')
             return true;
 
         var bg = getActualBackgroundColor(node);
