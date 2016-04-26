@@ -75,6 +75,10 @@
         "message": "Options have been saved successfully"
     },
 
+    "autosave_notify": {
+        "message": "Options have been saved automatically"
+    },
+
     "reset_notify": {
         "message": "Options have been reset successfully"
     },

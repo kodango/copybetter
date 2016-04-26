@@ -117,7 +117,7 @@ function showNotify(txt)
     var status = $("status");
 
     status.innerHTML = txt;
-    setTimeout(function() { status.innerHTML = ""; }, 2000);
+    setTimeout(function() { status.innerHTML = ""; }, 3000);
 }
 
 /*
@@ -132,6 +132,10 @@ document.addEventListener('change', function(event) {
         $('copyOnSelectInBox').disabled = !target.checked;
         $('copyOnShiftSelect').disabled = target.checked;
     }
+
+    // Auto-save the settings when change
+    saveOptions();
+    showNotify(chrome.i18n.getMessage('autosave_notify'));
 }, false);
 
 /*
@@ -168,9 +172,9 @@ function displayI18N()
 
     $('feedback').innerHTML = chrome.i18n.getMessage('feedback');
     $('help').innerHTML = chrome.i18n.getMessage('help');
-    $('save').innerHTML = chrome.i18n.getMessage('save');
+    //$('save').innerHTML = chrome.i18n.getMessage('save');
     $('reset').innerHTML = chrome.i18n.getMessage('reset');
-    $('restore').innerHTML = chrome.i18n.getMessage('restore');
+    //$('restore').innerHTML = chrome.i18n.getMessage('restore');
 
     $('copyOnSelect-text').innerHTML = chrome.i18n.getMessage('opt_copy_on_select');
     $('copyOnShiftSelect-text').innerHTML = chrome.i18n.getMessage('opt_copy_on_shift_select');

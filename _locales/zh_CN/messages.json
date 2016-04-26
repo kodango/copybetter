@@ -75,6 +75,10 @@
         "message": "选项已经保存成功"
     },
 
+    "autosave_notify": {
+        "message": "选项已经自动保存成功"
+    },
+
     "reset_notify": {
         "message": "选项已经重置成初始设置"
     },

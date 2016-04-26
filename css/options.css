@@ -13,7 +13,7 @@ body, html {
     background-image:url('/img/icon-32.png');
     background-repeat:no-repeat;
     padding:5px 40px;
-    font-size:16px;
+    font-size:1.8em;
     font-weight:bold;
     float: left;
 }
@@ -21,7 +21,7 @@ body, html {
 #header-info {
     float: left;
     padding:5px 40px;
-    font-size: 13px;
+    font-size:1.3em;
 }
 
 #header-info a {
@@ -29,13 +29,23 @@ body, html {
     color: #07b;
 }
 
+#status {
+    color: red;
+    padding-left: 10px;
+    display: inline-block;
+}
+
 #content {
     padding:20px 50px;
-    font-size: 13px;
+    font-size:1.3em;
+}
+
+#settings table {
+    width: 60%;
 }
 
 #settings table td {
-    padding: 5px 10px 5px 0;
+    padding: 5px 20px 5px 0;
 }
 
 #button button {
