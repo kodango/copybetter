@@ -12,6 +12,8 @@
     var _debugFunc = function(msg) { console.log(msg); };
     /* Real debug function */
     var debug = _emptyFunc;
+    /* Notification timer */
+    var timer;
 
     var TRANSPARENT_COLOR = 'rgba(0, 0, 0, 0)';
     var DELTA = 15;
@@ -221,9 +223,12 @@
             data: value,
             mode: mode
         }, function (response) {
-            // do nothing
+            /* Show copy notification */
+            if (config.showCopyNotification) {
+                show_message_box(response);
+            }
         });
-    }
+     }
 
     /*
      * Keydown event handler
@@ -340,6 +345,40 @@
     document.addEventListener('mouseup', onmouseup, false);
 
     /*
+     * Manipulate the message box
+     */
+    function create_message_box()
+    {
+        var container = document.createElement('div');
+
+        container.id = 'copybetter_container';
+        document.body.appendChild(container);
+    }
+
+    function hide_message_box()
+    {
+        var container = document.getElementById('copybetter_container');
+
+        container.style.display = 'none';
+        container.innerText = '';
+    }
+
+    function show_message_box(str)
+    {
+        var container = document.getElementById('copybetter_container');
+
+        // Clear the timer if exist
+        clearTimeout(timer);
+
+        container.innerText = str;
+        container.style.display = 'block';
+
+        timer = setTimeout(function() {
+            hide_message_box();
+        }, 3000);
+    }
+
+    /*
      * Bind events to loaded iframes
      */
     document.addEventListener('load', function (event) {
@@ -360,6 +399,11 @@
 
         if (doc == null)
             return;
+
+        // Create the message box if need
+        if (config.showCopyNotification) {
+            create_message_box();
+        }
 
         doc.addEventListener('keydown', onkeydown, false);
         doc.addEventListener('mouseup', onmouseup, false);

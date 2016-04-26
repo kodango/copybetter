@@ -1,4 +1,4 @@
-#copybetter-status {
+#copybetter_container {
     border: 1px solid #d8d8d8;
     padding: 5px 10px;
     margin: 15px;
@@ -6,7 +6,7 @@
     background: -webkit-gradient(linear, 0 0, 0 100%, from(#2e88c4), to(#075698));
     background: -webkit-linear-gradient(left, rgba(255,255,255,1) 0%, rgba(246,246,246,1) 47%, rgba(237,237,237,1) 100%);
     border-radius: 4px;
-    font-size: 12px;
+    font-size: 14px;
     font-family: sans-serif;
     height: 24px;
     line-height: 24px;
@@ -19,4 +19,5 @@
     position: fixed;
     right: 0;
     top: 0;
+    display: none;
 }

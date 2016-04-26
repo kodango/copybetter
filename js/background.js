@@ -102,18 +102,18 @@ function doCopy(str, noCache)
     sandbox.value = '';
 
     /* Show copy notification */
-    if (config.showCopyNotification) {
-        var options = {
-            type: 'basic', message: str,
-            iconUrl: 'img/icon-32.png',
-            title: chrome.i18n.getMessage("notification_title"),
-        };
+    //if (config.showCopyNotification) {
+    //    var options = {
+    //        type: 'basic', message: str,
+    //        iconUrl: 'img/icon-32.png',
+    //        title: chrome.i18n.getMessage("notification_title"),
+    //    };
 
-        chrome.notifications.create('copy-notify', options, function () {});
-        setTimeout(function() {
-            chrome.notifications.clear('copy-notify', function () {});
-        }, 3000);
-    }
+    //    chrome.notifications.create('copy-notify', options, function () {});
+    //    setTimeout(function() {
+    //        chrome.notifications.clear('copy-notify', function () {});
+    //    }, 3000);
+    //}
 
     /* Don't cache current copied string */
     if (noCache)
@@ -134,7 +134,7 @@ function doCopy(str, noCache)
 function copy(str, mode)
 {
     if (str.match(/^(\s|\n)*$/) != null)
-        return;
+        return "";
 
     if (mode == 'cur-tau') {
         chrome.tabs.query(
@@ -175,6 +175,8 @@ function copy(str, mode)
         else
             doCopy(str, false); // with cache
     }
+
+    return str;
 }
 
 /*
@@ -212,8 +214,8 @@ chrome.extension.onMessage.addListener(
         switch (request.command) {
             case 'copy':
                 debug('Request to copy string from content script');
-                copy(request.data, request.mode);
-                sendResponse({'clipboard': request.data});
+                value = copy(request.data, request.mode);
+                sendResponse(value);
                 break;
             case 'load':
                 debug('Request to load config from content script');
