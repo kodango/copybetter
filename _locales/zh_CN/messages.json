@@ -99,6 +99,14 @@
         "message": "设置"
     },
 
+    "enable_copy": {
+        "message": "启用"
+    },
+
+    "disable_copy": {
+        "message": "禁用"
+    },
+
     "notification_title": {
         "message": "增强复制通知"
     }

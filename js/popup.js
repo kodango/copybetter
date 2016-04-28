@@ -32,6 +32,7 @@ function generateCacheList()
 
     $('clear').innerHTML = chrome.i18n.getMessage('clear_cache');
     $('option').innerHTML = chrome.i18n.getMessage('option');
+    $('toggle').innerHTML = chrome.i18n.getMessage(bgConfig.enable ? 'disable_copy' : 'enable_copy');
 
     if (bgCache.length == 0) {
         cacheList.innerHTML = chrome.i18n.getMessage('empty_copy_cache_hint');
@@ -97,6 +98,10 @@ document.addEventListener('click', function(event) {
     } else if (event.target.id == "option") {
         chrome.tabs.create({'active':true, 'url': 'options.html'});
         debug('Open the option page...');
+    } else if (event.target.id == "toggle") {
+        bgConfig.enable = !bgConfig.enable;
+        debug('Toggle the disable option...');
+        bgWindow.updateConfig();
     }
 }, false);
 

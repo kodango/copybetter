@@ -210,6 +210,9 @@
      */
     function copy(value, mode)
     {
+        if (!config.enable)
+            return
+
         if (value.match(/^(\s|\n)*$/) != null)
             return;
 

@@ -99,6 +99,14 @@
         "message": "Option"
     },
 
+    "enable_copy": {
+        "message": "Enable"
+    },
+
+    "disable_copy": {
+        "message": "Disable"
+    },
+
     "notification_title": {
         "message": "Copy Better Notification"
     }

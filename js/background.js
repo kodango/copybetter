@@ -42,6 +42,7 @@ function loadConfig(reset)
         clearConfig();
 
     return {
+        'enable': get('enable', true),
         'cacheSize': get('cacheSize', 10),
         'copyOnSelect': get('copyOnSelect', true),
         'copyOnShiftSelect': get('copyOnShiftSelect', true),
@@ -105,10 +106,10 @@ function doCopy(str, noCache)
     if (config.showCopyNotification) {
         var options = {
             type: 'basic',
-            message: str.substr(0, 35) + '...',
             iconUrl: 'img/icon-32.png',
             //title: chrome.i18n.getMessage("notification_title"),
             title: "",
+            message: str.substr(0, 35).split('\n')[0] + "..."
         };
 
         chrome.notifications.create('copy-notify', options, function () {});
