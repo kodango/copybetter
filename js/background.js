@@ -102,33 +102,35 @@ function doCopy(str, noCache)
     sandbox.value = '';
 
     /* Show copy notification */
-    //if (config.showCopyNotification) {
-    //    var options = {
-    //        type: 'basic', message: str,
-    //        iconUrl: 'img/icon-32.png',
-    //        title: chrome.i18n.getMessage("notification_title"),
-    //    };
+    if (config.showCopyNotification) {
+        var options = {
+            type: 'basic',
+            message: str.substr(0, 35) + '...',
+            iconUrl: 'img/icon-32.png',
+            //title: chrome.i18n.getMessage("notification_title"),
+            title: "",
+        };
 
-    //    chrome.notifications.create('copy-notify', options, function () {});
-    //    setTimeout(function() {
-    //        chrome.notifications.clear('copy-notify', function () {});
-    //    }, 3000);
-    //}
-
-    /* Don't cache current copied string */
-    if (noCache)
-        return;
-
-    /* Re-allocate cache space */
-    if (cache.length == 2*config.cacheSize) {
-        debug('Cache space is full, re-allocate it');
-        cache = cache.slice(config.cacheSize, 2*config.cacheSize);
+        chrome.notifications.create('copy-notify', options, function () {});
+        setTimeout(function() {
+            chrome.notifications.clear('copy-notify', function () {});
+        }, 3000);
     }
 
-    /* Push current copied string to cache */
-    if (cache[cache.length - 1] != str)
-        cache.push(str);
-}
+    if (!noCache) {
+        /* Re-allocate cache space */
+        if (cache.length == 2*config.cacheSize) {
+            debug('Cache space is full, re-allocate it');
+            cache = cache.slice(config.cacheSize, 2*config.cacheSize);
+        }
+
+        /* Push current copied string to cache */
+        if (cache[cache.length - 1] != str)
+            cache.push(str);
+    }
+
+    return str;
+}    
 
 /* Copy string to clipboard */
 function copy(str, mode)
@@ -144,7 +146,7 @@ function copy(str, mode)
                 var title = tabs[0].title;
 
                 str = str.replace(/%TITLE%/g, title).replace(/%URL%/g, url);
-                doCopy(str)
+                doCopy(str);
             }
         );
     } else if (mode == 'all-tau') {
@@ -161,8 +163,7 @@ function copy(str, mode)
                             .replace(/%URL%/g, url) + '\n';
                 }
 
-                str = value;
-                doCopy(str);
+                doCopy(value);
             }
         );
     } else {
@@ -170,13 +171,8 @@ function copy(str, mode)
         str = str.replace(/^\n+|\n+$/, '');
         str = str.replace(/\xa0/g, ' ');
 
-        if (mode == 'no-cache')
-            doCopy(str, true); // no cache
-        else
-            doCopy(str, false); // with cache
+        doCopy(str, mode == 'no-cache');
     }
-
-    return str;
 }
 
 /*
@@ -214,13 +210,13 @@ chrome.extension.onMessage.addListener(
         switch (request.command) {
             case 'copy':
                 debug('Request to copy string from content script');
-                value = copy(request.data, request.mode);
-                sendResponse(value);
+                copy(request.data, request.mode);
                 break;
             case 'load':
                 debug('Request to load config from content script');
                 config = loadConfig();
                 sendResponse(config);
+                break;
             default:
                 break;
         }
