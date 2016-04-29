@@ -102,6 +102,7 @@ document.addEventListener('click', function(event) {
         bgConfig.enable = !bgConfig.enable;
         debug('Toggle the disable option...');
         bgWindow.updateConfig();
+        $('toggle').innerHTML = chrome.i18n.getMessage(bgConfig.enable ? 'disable_copy' : 'enable_copy');
     }
 }, false);
 
