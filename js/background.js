@@ -109,7 +109,7 @@ function doCopy(str, noCache)
             iconUrl: 'img/icon-32.png',
             //title: chrome.i18n.getMessage("notification_title"),
             title: "",
-            message: str.substr(0, 35).split('\n')[0] + "..."
+            message: str.replace('\n', ' ').substr(0, 35) + "..."
         };
 
         chrome.notifications.create('copy-notify', options, function () {});
