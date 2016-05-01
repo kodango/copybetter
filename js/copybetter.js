@@ -6,13 +6,6 @@
     /* Local configuration */
     var config = {};
 
-    /* An empty debug function */
-    var _emptyFunc = function(msg) {};
-    /* A simple debug function */
-    var _debugFunc = function(msg) { console.log(msg); };
-    /* Real debug function */
-    var debug = _emptyFunc;
-
     var TRANSPARENT_COLOR = 'rgba(0, 0, 0, 0)';
     var DELTA = 15;
 
@@ -22,14 +15,16 @@
     function updateConfig(newConfig)
     {
         config = newConfig;
-
-        if (config.enableDebug) {
-            debug = _debugFunc;
-        } else {
-            debug = _emptyFunc;
-        }
-
         debug('Update config successfully');
+    }
+
+    /*
+     * Debug function
+     */
+    function debug(msg)
+    {
+        if (config.enableDebug)
+            console.log('[DEBUG] ' + msg);
     }
 
     /*
@@ -38,7 +33,6 @@
     function css(node, name)
     {
         var style = window.getComputedStyle(node, null);
-
         return style.getPropertyValue(name);
     }
 
@@ -185,7 +179,7 @@
      */
     function html(sel) { return getSelectedContent(sel, false); }
 
-    /* 
+    /*
      * Get selected text content
      */
     function text(sel) { return getSelectedContent(sel, true); }
@@ -198,11 +192,11 @@
     /*
      * Check whether the element is a edit box, like textarea or text input
      */
-    function isEditBox(elem) 
+    function isEditBox(elem)
     {
-        return (elem.tagName == 'INPUT' && elem.type == "text")
+        return elem && ((elem.tagName == 'INPUT' && elem.type == "text")
             || elem.contentEditable == 'true' // contenteditable is true && tag name limit??
-            || elem.tagName == 'TEXTAREA' ;
+            || elem.tagName == 'TEXTAREA');
     }
 
     /*
@@ -210,8 +204,8 @@
      */
     function copy(value, mode)
     {
-        if (!config.enable)
-            return
+        if (!config.enableAutocopy)
+            return;
 
         if (value.match(/^(\s|\n)*$/) != null)
             return;
@@ -227,80 +221,6 @@
      }
 
     /*
-     * Keydown event handler
-     */
-    function onkeydown(event)
-    {
-        if (isEditBox(event.target))
-            return;
-
-        var raw = true;
-        var value = "";
-        var sel = event.view.getSelection();
-
-        if (event.shiftKey && event.keyCode == 67) /* Shift + c */
-            raw = false;
-        else if (event.ctrlKey && event.keyCode == 67) /* Ctrl + c */
-            raw = true;
-        else
-            return;
-
-        debug('Raw format: ' + raw);
-
-        if (!isSelected(sel)) { // Copy title and url if no text selected
-            if (raw) {
-                value = config.copyTitleRawFmt;
-            } else {
-                value = config.copyTitleFmt;
-            }
-
-            /* 
-             * Copy all tabs's url and title if alt key is pressed
-             */
-            copy(value, event.altKey == true ? 'all-tau' : 'cur-tau')
-        } else { // Copy selected text only
-            value = raw ? text(sel) : html(sel);
-            copy(value);
-            sel.removeAllRanges();
-        }
-    }
-
-    /*
-     * Mouseup event handler
-     */
-    function onmouseup(event)
-    {
-        if (!config.copyOnSelect && !(config.copyOnShiftSelect&&event.shiftKey))
-            return;
-
-        var value = "";
-        var sel = event.view.getSelection();
-
-        if (isEditBox(event.target)) {  // if in edit box
-            if (!config.copyOnSelectInBox)
-                return;
-
-            value = event.target.value;
-            value = value.substring(event.target.selectionStart,
-                    event.target.selectionEnd);
-            copy(value);
-        } else {
-            if (!isSelected(sel))
-                return;
-
-            value = text(sel);
-            copy(value);
-        }
-    }
-
-    /*
-     * Load configure from background page
-     */
-    chrome.extension.sendMessage({command: 'load'}, function(response) {
-        updateConfig(response);
-    });
-
-    /*
      * Copy from cache list
      */
     function copyFromCache(str)
@@ -310,7 +230,7 @@
         debug('Active element is ' + target.tagName);
 
         if (isEditBox(target)) {
-            target.value = target.value.substring(0, target.selectionStart) + 
+            target.value = target.value.substring(0, target.selectionStart) +
                 str + target.value.substring(target.selectionEnd);
             debug('Paste string from cache: ' + str);
         } else {
@@ -319,10 +239,59 @@
     }
 
     /*
+     * Copy from the selected text or html in page
+     */
+    function copyFromSelection(fmt)
+    {
+        var sel = window.getSelection(), value;
+
+        if (!isSelected(sel))
+            return;
+
+        value = fmt == "html" ? html(sel) : text(sel);
+
+        /* Unselect it... */
+        if (fmt == "html") {
+            sel.removeAllRanges();
+        }
+
+        copy(value);
+    }
+
+    /*
+     * Mouseup event handler
+     */
+    function onmouseup(event)
+    {
+        var value = "", target = event.target;
+
+        if (isEditBox(target)) {  // if in a editor
+            if (!config.copyOnSelectInBox)
+                return;
+
+            value = target.value.substring(target.selectionStart,
+                target.selectionEnd);
+            copy(value);
+        } else {
+            copyFromSelection("text", event.target);
+        }
+    }
+
+    /*
+     * Keydown event handler
+     */
+    function onkeydown(event)
+    {
+        if (event.shiftKey && event.keyCode == 16 && !isEditBox(event.target)) {
+            copyFromSelection("html");
+        }
+    }
+
+    /*
      * Proceess paste message from extension
      */
     chrome.extension.onMessage.addListener(
-        function(request, sender, sendResponse) 
+        function(request, sender, sendResponse)
         {
             switch (request.command) {
                 case 'paste':
@@ -336,6 +305,13 @@
             }
        }
     );
+
+    /*
+    * Load configure from background page
+    */
+    chrome.extension.sendMessage({command: 'load'}, function(response) {
+        updateConfig(response);
+    });
 
     document.addEventListener('keydown', onkeydown, false);
     document.addEventListener('mouseup', onmouseup, false);

@@ -32,7 +32,8 @@ function generateCacheList()
 
     $('clear').innerHTML = chrome.i18n.getMessage('clear_cache');
     $('option').innerHTML = chrome.i18n.getMessage('option');
-    $('toggle').innerHTML = chrome.i18n.getMessage(bgConfig.enable ? 'disable_copy' : 'enable_copy');
+    $('toggle').innerHTML = chrome.i18n.getMessage(bgConfig.enableAutocopy ? 'disable' : 'enable');
+    $('shortcuts').innerHTML = chrome.i18n.getMessage('shortcuts');
 
     if (bgCache.length == 0) {
         cacheList.innerHTML = chrome.i18n.getMessage('empty_copy_cache_hint');
@@ -57,7 +58,7 @@ function generateCacheList()
     ol = document.createElement('ol');
 
     for (item in cache) {
-        li = document.createElement('li'); 
+        li = document.createElement('li');
         li.className = "cache-item";
 
         li.textContent = cache[item];
@@ -99,10 +100,13 @@ document.addEventListener('click', function(event) {
         chrome.tabs.create({'active':true, 'url': 'options.html'});
         debug('Open the option page...');
     } else if (event.target.id == "toggle") {
-        bgConfig.enable = !bgConfig.enable;
         debug('Toggle the disable option...');
-        bgWindow.updateConfig();
-        $('toggle').innerHTML = chrome.i18n.getMessage(bgConfig.enable ? 'disable_copy' : 'enable_copy');
+        bgWindow.toggleAutocopy(true);
+        $('toggle').innerHTML = chrome.i18n.getMessage(
+            bgConfig.enableAutocopy ? "disable" : "enable"
+        );
+    } else if (event.target.id == 'shortcuts') {
+        chrome.tabs.create({url:'chrome://extensions/configureCommands'});
     }
 }, false);
 

@@ -39,20 +39,16 @@
         "message": "选中文字时自动复制"
     },
 
-    "opt_copy_on_shift_select": {
-        "message": "当选中文字的同时按下 SHIFT 键才复制文本"
-    },
-
     "opt_copy_on_select_in_box": {
         "message": "编辑框中选中文字时自动复制"
     },
 
     "opt_copy_title_raw_fmt": {
-        "message": "复制标签标题和地址 (文本格式, CTRL+C)"
+        "message": "设置复制标签标题和地址的文本格式"
     },
 
     "opt_copy_title_fmt": {
-        "message": "复制标签标题和地址 (HTML格式, SHIFT+C)"
+        "message": "设置复制标签标题和地址的HTML格式"
     },
 
     "opt_enable_debug": {
@@ -99,15 +95,46 @@
         "message": "设置"
     },
 
-    "enable_copy": {
+    "enable": {
         "message": "启用"
     },
 
-    "disable_copy": {
+    "disable": {
         "message": "禁用"
+    },
+
+    "shortcuts": {
+        "message": "快捷键"
     },
 
     "notification_title": {
         "message": "增强复制通知"
+    },
+
+    "cmd_copy_curtab_in_html": {
+        "message": "复制当前标签的标题和地址(html格式)"
+    },
+
+    "cmd_copy_curtab_in_text": {
+        "message": "复制当前标签的标题和地址(文本格式)"
+    },
+    "cmd_copy_alltabs_in_html": {
+        "message": "复制所有标签的标题和地址(html格式)"
+    },
+
+    "cmd_copy_alltabs_in_text": {
+        "message": "复制当所有标签的标题和地址(文本格式)"
+    },
+
+    "cmd_toggle_autocopy": {
+        "message": "切换选中自动复制"
+    },
+
+    "disable_autocopy": {
+        "message": "禁用选中自动复制"
+    },
+
+    "enable_autocopy": {
+        "message": "启用选中自动复制"
     }
 }

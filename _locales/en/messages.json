@@ -39,20 +39,16 @@
         "message": "Copy selected text automatically"
     },
 
-    "opt_copy_on_shift_select": {
-        "message": "Copy selected text only when SHIFT key is pressed"
-    },
-
     "opt_copy_on_select_in_box": {
         "message": "Copy selected text in edit box automatically"
     },
 
     "opt_copy_title_raw_fmt": {
-        "message": "Copy title and url (text format, CTRL+C)"
+        "message": "Set the text format when copy title and url"
     },
 
     "opt_copy_title_fmt": {
-        "message": "Copy title and url (html format, SHIFT+C)"
+        "message": "Set the HTML format when copy title and url"
     },
 
     "opt_enable_debug": {
@@ -99,15 +95,46 @@
         "message": "Option"
     },
 
-    "enable_copy": {
+    "enable": {
         "message": "Enable"
     },
 
-    "disable_copy": {
+    "disable": {
         "message": "Disable"
+    },
+
+    "shortcuts": {
+        "message": "Shortcuts"
     },
 
     "notification_title": {
         "message": "Copy Better Notification"
+    },
+
+    "cmd_copy_curtab_in_html": {
+        "message": "Copy the title&url of current tab in html format"
+    },
+
+    "cmd_copy_curtab_in_text": {
+        "message": "Copy the title&url of current tab in text format"
+    },
+    "cmd_copy_alltabs_in_html": {
+        "message": "Copy the title&url of all tabs in html format"
+    },
+
+    "cmd_copy_alltabs_in_text": {
+        "message": "Copy the title&url of all tabs in text format"
+    },
+
+    "cmd_toggle_autocopy": {
+        "message": "Toggle auto-copy function"
+    },
+
+    "disable_autocopy": {
+        "message": "Enable auto-copy selected text"
+    },
+
+    "enable_autocopy": {
+        "message": "Disable auto-copy selected text"
     }
 }

@@ -6,18 +6,18 @@
 /*
  * Set option to value
  */
-function set(key, val) 
-{ 
+function set(key, val)
+{
     val = JSON.stringify(val);
     localStorage.setItem(key, val);
 
-    return val; 
+    return val;
 }
 
 /*
  * Get option value
  */
-function get(key, def) 
+function get(key, def)
 {
     if (key in localStorage)
         return JSON.parse(localStorage.getItem(key));
@@ -42,10 +42,8 @@ function loadConfig(reset)
         clearConfig();
 
     return {
-        'enable': get('enable', true),
+        'enableAutocopy': get('enableAutocopy', true),
         'cacheSize': get('cacheSize', 10),
-        'copyOnSelect': get('copyOnSelect', true),
-        'copyOnShiftSelect': get('copyOnShiftSelect', true),
         'copyOnSelectInBox': get('copyOnSelectInBox', false),
         'copyTitleRawFmt': get('copyTitleRawFmt', '%TITLE% - %URL%'),
         'copyTitleFmt': get('copyTitleFmt', '<a href="%URL%" title="%TITLE%" target="_blank">%TITLE%</a>'),
@@ -87,6 +85,36 @@ var config = loadConfig();
 var cache = config.cache;
 
 /*
+ * Show the notification
+ */
+function showNotify(str)
+{
+    if (!config.showCopyNotification)
+        return;
+
+    var options = {
+        type: 'basic',
+        iconUrl: 'img/icon-32.png',
+        //title: chrome.i18n.getMessage("notification_title"),
+        title: "",
+        message: ""
+    };
+
+    str = str.replace('\n', ' ');
+
+    if (str.length > 35) {
+        options.message = str.substr(0, 35) + "...";
+    } else {
+        options.message = str;
+    }
+
+    chrome.notifications.create('copy-notify', options, function () {});
+    setTimeout(function() {
+        chrome.notifications.clear('copy-notify', function () {});
+    }, 3000);
+}
+
+/*
  * Do real copy work
  */
 function doCopy(str, noCache)
@@ -103,20 +131,7 @@ function doCopy(str, noCache)
     sandbox.value = '';
 
     /* Show copy notification */
-    if (config.showCopyNotification) {
-        var options = {
-            type: 'basic',
-            iconUrl: 'img/icon-32.png',
-            //title: chrome.i18n.getMessage("notification_title"),
-            title: "",
-            message: str.replace('\n', ' ').substr(0, 35) + "..."
-        };
-
-        chrome.notifications.create('copy-notify', options, function () {});
-        setTimeout(function() {
-            chrome.notifications.clear('copy-notify', function () {});
-        }, 3000);
-    }
+    showNotify(str);
 
     if (!noCache) {
         /* Re-allocate cache space */
@@ -131,7 +146,7 @@ function doCopy(str, noCache)
     }
 
     return str;
-}    
+}
 
 /* Copy string to clipboard */
 function copy(str, mode)
@@ -180,7 +195,7 @@ function copy(str, mode)
  * Paste string to content scripts
  */
 function paste(str)
-{   
+{
     debug('Paste from string: ' + str);
     copy(str, 'no-cache');
 
@@ -202,9 +217,63 @@ function paste(str)
     return str;
 }
 
+/*
+ * Toggle the auto-copy function
+ */
+function toggleAutocopy(silent)
+{
+    config.enableAutocopy = !config.enableAutocopy;
+    debug('Toggle auto-copy switch: ' + config.enableAutocopy);
+    updateConfig();
+
+    if (!silent) {
+        showNotify(chrome.i18n.getMessage(
+            config.enableAutocopy ? 'enable_autocopy' : 'disable_autocopy'
+        ));
+    }
+}
 
 /*
- * Message passing between content script and backgroud page
+ * Store the cache when the window close
+ */
+if (config.storeCacheOnExit) {
+    chrome.windows.onRemoved.addListener(function(windowId) {
+        debug('Store the cache when exit');
+        set('cache', cache);
+    });
+}
+
+/*
+ * Command passing between content script and background page
+ */
+chrome.commands.onCommand.addListener(function(command) {
+    debug('Receive command' + command);
+
+    switch (command) {
+        case "cmd_copy_curtab_in_html":
+            copy(config.copyTitleFmt, "cur-tau");
+            break;
+        case "cmd_copy_curtab_in_text":
+            copy(config.copyTitleRawFmt, "cur-tau");
+            break;
+        case "cmd_copy_alltabs_in_html":
+            copy(config.copyTitleFmt, "all-tau");
+            break;
+        case "cmd_copy_alltabs_in_text":
+            copy(config.copyTitleRawFmt, "all-tau");
+            break;
+        case "cmd_toggle_autocopy":
+            toggleAutocopy();
+            break;
+        case "cmd_copy_selected_in_html":
+
+        default:
+            break;
+    }
+});
+
+/*
+ * Message passing between content script and background page
  */
 chrome.extension.onMessage.addListener(
     function(request, sender, sendResponse) {
@@ -223,13 +292,3 @@ chrome.extension.onMessage.addListener(
         }
     }
 );
-
-/*
- * Store the cache when the window close
- */
-if (config.storeCacheOnExit) {
-    chrome.windows.onRemoved.addListener(function(windowId) {
-        debug('Store the cache when exit');
-        set('cache', cache);
-    });
-}
