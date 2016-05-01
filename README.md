@@ -31,26 +31,34 @@ Extension usage
 中文说明
 --------
 
-1. 安装改扩展后选中文字会自动复制, 如果在选中的情况下按下`Shift`键则会拷贝当前选中内容的HTML源代码。
-2. 按下`Ctrl+Y`键以文本格式复制当前标签的标题与地址, 默认的格式为:
+* 安装改扩展后选中文字会自动复制, 如果在选中的情况下按下`Shift`键则会拷贝当前选中内容的HTML源代码。
+* 按下`Ctrl+Y`键以文本格式复制当前标签的标题与地址, 默认的格式为:
 
-    ```Chrome扩展之增强复制 - http://kodango.com/copybetter-extension```
-
-3. 按下`Ctrl+Shift+Y`键以文本格式复制所有标签的标题与地址, 默认的格式为:
-
-    ```dangoakachan/copybetter - https://github.com/dangoakachan/copybetter
+    ```
     Chrome扩展之增强复制 - http://kodango.com/copybetter-extension
-    扩展程序 - chrome://extensions/```
+    ```
 
-4. 按下`Alt+Y`键以HTML格式复制当前标签的标题与地址，默认的格式为:
+* 按下`Ctrl+Shift+Y`键以文本格式复制所有标签的标题与地址, 默认的格式为:
 
-    ```<a href="http://kodango.com/copybetter-extension" title="Chrome扩展之增强复制" target="_blank">Chrome扩展之增强复制</a>```
+    ```
+    dangoakachan/copybetter - https://github.com/dangoakachan/copybetter
+    Chrome扩展之增强复制 - http://kodango.com/copybetter-extension
+    扩展程序 - chrome://extensions/
+    ```
 
-5. 按下`Alt+Shift+Y`键以HTML格式复制所有标签的标题与地址，默认的格式为:
+* 按下`Alt+Y`键以HTML格式复制当前标签的标题与地址，默认的格式为:
 
-    ```<a href="https://github.com/dangoakachan/copybetter" title="dangoakachan/copybetter" target="_blank">dangoakachan/copybetter</a>
+    ```
     <a href="http://kodango.com/copybetter-extension" title="Chrome扩展之增强复制" target="_blank">Chrome扩展之增强复制</a>
-    <a href="chrome://extensions/" title="扩展程序" target="_blank">扩展程序</a>```
+    ```
+
+* 按下`Alt+Shift+Y`键以HTML格式复制所有标签的标题与地址，默认的格式为:
+
+    ```
+    <a href="https://github.com/dangoakachan/copybetter" title="dangoakachan/copybetter" target="_blank">dangoakachan/copybetter</a>
+    <a href="http://kodango.com/copybetter-extension" title="Chrome扩展之增强复制" target="_blank">Chrome扩展之增强复制</a>
+    <a href="chrome://extensions/" title="扩展程序" target="_blank">扩展程序</a>
+    ```
 
 此时, 再次点击工具栏上的图标, 会显示上面复制的内容, 点击列表中的每一项复制。 如果当前在输入框中, 则会自动将选择的内容插入到光标所在的位置。
 
@@ -61,35 +69,43 @@ English Help
 
 After the extension is installed, it will be copied automatically by default, you can disable this function through the option. If you press `Shift` when select text, then the html source code will be copied instead.
 
-1. Press `Ctrl+Y` will copy the current tab's tile and url
+* Press `Ctrl+Y` will copy the current tab's tile and url
 in text format like `%TITLE% - %URL%`. For example, if you visit google.com
 now:
 
-    ```Google - https://www.google.com/```
+    ```
+    Google - https://www.google.com/
+    ```
 
-2. Press `Ctrl+Shift+Y` will copy the all tabs' tile and url
+* Press `Ctrl+Shift+Y` will copy the all tabs' tile and url
 in a list of `%TITLE% - %URL%`. For example, if you open google and twitter:
 
-    ```Google - https://www.google.com/
-    Twitter - https://twitter.com/```
+    ```
+    Google - https://www.google.com/
+    Twitter - https://twitter.com/
+    ```
 
-3. Press `Alt+Y` will copy the current tab's title and url
-in html format like `<a href="%URL%" target="_blank">%TITLE%</a>:
+* Press `Alt+Y` will copy the current tab's title and url
+in html format like `<a href="%URL%" target="_blank">%TITLE%</a>`:
 
-    ```<a href="https://www.google.com/" target="_blank">Google</a>```
+    ```
+    <a href="https://www.google.com/" target="_blank">Google</a>
+    ```
 
-4. Press `Alt+Shift+Y` will copy all tabs' title and url in a
-list of `<a href="%URL%" target="_blank">%TITLE%</a>:
+* Press `Alt+Shift+Y` will copy all tabs' title and url in a
+list of `<a href="%URL%" target="_blank">%TITLE%</a>`:
 
-    ```<a href="https://www.google.com/" title="Google" target="_blank">Google</a>
-    <a href="https://twitter.com/" title="Twitter" target="_blank">Twitter</a>```
+    ```
+    <a href="https://www.google.com/" title="Google" target="_blank">Google</a>
+    <a href="https://twitter.com/" title="Twitter" target="_blank">Twitter</a>
+    ```
 
 Copy Better extension will remember recent N copy record in cache, you can find
 this list through clicking the toolbar icon. Select any copy cache item in the
 list will copy it, and if you are in an editbox, it will paste the selected copy
 cache item in current cursor position.
 
-Note: You can change the shortcuts as you link in chrome://extensions/configureCommands page.
+Note: You can change the shortcuts as you link in `chrome://extensions/configureCommands` page.
 
 Extension Settings
 ==================
