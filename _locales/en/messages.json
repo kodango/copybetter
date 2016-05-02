@@ -16,7 +16,7 @@
     },
 
     "feedback": {
-        "message": "Leave feedback"
+        "message": "Feedback"
     },
 
     "help": {
@@ -67,6 +67,14 @@
         "message": "Show notification in the right-top corner when copy is done"
     },
 
+    "opt_always_allow_copy": {
+        "message": "Enable allow copy function by default"
+    },
+
+    "shortcuts": {
+        "message": "Shortcuts"
+    },
+
     "save_notify": {
         "message": "Options have been saved successfully"
     },
@@ -103,8 +111,8 @@
         "message": "Disable"
     },
 
-    "shortcuts": {
-        "message": "Shortcuts"
+    "allowcopy": {
+        "message": "Allow copy"
     },
 
     "notification_title": {
@@ -128,6 +136,10 @@
 
     "cmd_toggle_autocopy": {
         "message": "Toggle auto-copy function"
+    },
+
+    "cmd_allow_copy": {
+        "message": "Allow copy in current tab"
     },
 
     "disable_autocopy": {

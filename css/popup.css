@@ -1,5 +1,5 @@
 body {
-    margin: 0; 
+    margin: 0;
     font-size: 12px;
 }
 
@@ -10,6 +10,8 @@ body {
 
 #hints a {
     text-decoration: none;
+    padding-left: 2px;
+    padding-right: 2px;
 }
 
 #hints {
@@ -22,7 +24,7 @@ body {
     padding-top: 5px;
 }
 
-#recent-cache ol { 
+#recent-cache ol {
     padding: 0;
     margin:0;
 }

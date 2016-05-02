@@ -21,40 +21,6 @@ function $(id)
 }
 
 /*
- * Intialize the option settings
- */
-function initOptions(reset)
-{
-    var config = bgWindow.loadConfig(reset);
-
-    $('copyOnSelectInBox').checked = config.copyOnSelectInBox;
-    $('copyTitleRawFmt').value = config.copyTitleRawFmt;
-    $('copyTitleFmt').value = config.copyTitleFmt;
-    $('enableDebug').checked = config.enableDebug;
-    $('cacheSize').value = config.cacheSize;
-    $('cacheSizeValue').value = config.cacheSize;
-    $('storeCacheOnExit').checked = config.storeCacheOnExit;
-    $('showCopyNotification').checked = config.showCopyNotification;
-}
-
-/*
- * Restore the option settings saved at the last time
- */
-function restoreOptions()
-{
-    initOptions(false);
-}
-
-/*
- * Reset the option settings to default
- */
-function resetOptions()
-{
-    initOptions(true);
-    saveOptions();
-}
-
-/*
  * Save the option value
  */
 function save_config(key, id)
@@ -87,20 +53,52 @@ function save_config(key, id)
 }
 
 /*
+ * Intialize the option settings
+ */
+function initOptions()
+{
+    var config = bgWindow.loadConfig();
+
+    $('copyOnSelectInBox').checked = config.copyOnSelectInBox;
+    $('copyTitleRawFmt').value = config.copyTitleRawFmt;
+    $('copyTitleFmt').value = config.copyTitleFmt;
+    $('enableDebug').checked = config.enableDebug;
+    $('alwaysAllowCopy').checked = config.alwaysAllowCopy;
+    $('cacheSize').value = config.cacheSize;
+    $('cacheSizeValue').value = config.cacheSize;
+    $('storeCacheOnExit').checked = config.storeCacheOnExit;
+    $('showCopyNotification').checked = config.showCopyNotification;
+}
+
+/*
  * Save current option settings
  */
-function saveOptions()
+function saveOptions(key)
 {
-    save_config('copyOnSelectInBox');
-    save_config('copyTitleRawFmt');
-    save_config('copyTitleFmt');
-    save_config('enableDebug');
-    save_config('storeCacheOnExit');
-    save_config('cacheSize');
-    save_config('showCopyNotification');
+    if (key) {
+        save_config(key);
+    } else {
+        save_config('copyOnSelectInBox');
+        save_config('copyTitleRawFmt');
+        save_config('copyTitleFmt');
+        save_config('enableDebug');
+        save_config('storeCacheOnExit');
+        save_config('cacheSize');
+        save_config('showCopyNotification');
+        save_config('alwaysAllowCopy');
+    }
 
-    bgWindow.config = bgWindow.loadConfig();
     bgWindow.updateConfig();
+}
+
+/*
+ * Reset the option settings to default
+ */
+function resetOptions()
+{
+    bgWindow.clearConfig();
+    initOptions();
+    saveOptions();
 }
 
 /*
@@ -124,14 +122,14 @@ function displayI18N()
 
     $('feedback').innerHTML = chrome.i18n.getMessage('feedback');
     $('help').innerHTML = chrome.i18n.getMessage('help');
-    //$('save').innerHTML = chrome.i18n.getMessage('save');
     $('reset').innerHTML = chrome.i18n.getMessage('reset');
-    //$('restore').innerHTML = chrome.i18n.getMessage('restore');
+    $('shortcuts').innerHTML = chrome.i18n.getMessage('shortcuts');
 
     $('copyOnSelectInBox-text').innerHTML = chrome.i18n.getMessage('opt_copy_on_select_in_box');
     $('copyTitleRawFmt-text').innerHTML = chrome.i18n.getMessage('opt_copy_title_raw_fmt');
     $('copyTitleFmt-text').innerHTML = chrome.i18n.getMessage('opt_copy_title_fmt');
     $('enableDebug-text').innerHTML = chrome.i18n.getMessage('opt_enable_debug');
+    $('alwaysAllowCopy-text').innerHTML = chrome.i18n.getMessage('opt_always_allow_copy');
     $('storeCacheOnExit-text').innerHTML = chrome.i18n.getMessage('opt_store_cache_on_exit');
     $('cacheSize-text').innerHTML = chrome.i18n.getMessage('opt_cache_size');
     $('showCopyNotification-text').innerHTML = chrome.i18n.getMessage('opt_show_copy_notification');
@@ -143,7 +141,7 @@ function displayI18N()
 function onload()
 {
     displayI18N()
-    restoreOptions();
+    initOptions();
 }
 
 document.addEventListener('DOMContentLoaded', onload, false);
@@ -159,7 +157,7 @@ document.addEventListener('change', function(event) {
     }
 
     // Auto-save the settings when change
-    saveOptions();
+    saveOptions(target.id);
     showNotify(chrome.i18n.getMessage('autosave_notify'));
 }, false);
 
@@ -170,17 +168,12 @@ document.addEventListener('click', function(event) {
     var target = event.target;
 
     switch (target.id) {
-        case 'save':
-            saveOptions();
-            showNotify(chrome.i18n.getMessage('save_notify'));
-            break;
-        case 'restore':
-            restoreOptions();
-            showNotify(chrome.i18n.getMessage('restore_notify'));
-            break;
         case 'reset':
             resetOptions();
             showNotify(chrome.i18n.getMessage('reset_notify'));
+            break;
+        case "shortcuts":
+            chrome.tabs.create({url:'chrome://extensions/configureCommands'});
             break;
         default:
             break;

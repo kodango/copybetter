@@ -5,7 +5,7 @@
 /* Window object of background page */
 var bgWindow = chrome.extension.getBackgroundPage();
 /* Config object */
-var bgConfig = bgWindow.config;
+var config = bgWindow.loadConfig();
 /* Copy cache */
 var bgCache = bgWindow.cache;
 
@@ -32,8 +32,10 @@ function generateCacheList()
 
     $('clear').innerHTML = chrome.i18n.getMessage('clear_cache');
     $('option').innerHTML = chrome.i18n.getMessage('option');
-    $('toggle').innerHTML = chrome.i18n.getMessage(bgConfig.enableAutocopy ? 'disable' : 'enable');
-    $('shortcuts').innerHTML = chrome.i18n.getMessage('shortcuts');
+    $('toggle').innerHTML = chrome.i18n.getMessage(config.enableAutocopy ? 'disable' : 'enable');
+
+    if (!config.alwaysAllowCopy)
+        $('allowcopy').innerHTML = chrome.i18n.getMessage('allowcopy');
 
     if (bgCache.length == 0) {
         cacheList.innerHTML = chrome.i18n.getMessage('empty_copy_cache_hint');
@@ -45,10 +47,10 @@ function generateCacheList()
     /*
      * Only show recent cacheSize items
      */
-    if (bgCache.length > bgConfig.cacheSize) {
-        cache = bgCache.slice(bgCache.length - bgConfig.cacheSize,
+    if (bgCache.length > config.cacheSize) {
+        cache = bgCache.slice(bgCache.length - config.cacheSize,
                 bgCache.length);
-        idx = bgCache.length - bgConfig.cacheSize;
+        idx = bgCache.length - config.cacheSize;
     } else {
         cache = bgCache;
         idx = 0;
@@ -103,10 +105,10 @@ document.addEventListener('click', function(event) {
         debug('Toggle the disable option...');
         bgWindow.toggleAutocopy(true);
         $('toggle').innerHTML = chrome.i18n.getMessage(
-            bgConfig.enableAutocopy ? "disable" : "enable"
+            config.enableAutocopy ? "disable" : "enable"
         );
-    } else if (event.target.id == 'shortcuts') {
-        chrome.tabs.create({url:'chrome://extensions/configureCommands'});
+    } else if (event.target.id == 'allowcopy') {
+        bgWindow.allowCopy();
     }
 }, false);
 

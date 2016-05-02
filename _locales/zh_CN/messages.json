@@ -12,11 +12,11 @@
     },
 
     "opt_title_name": {
-        "message": "Copy Better选项"
+        "message": "Copy Better 选项"
     },
 
     "feedback": {
-        "message": "反馈问题"
+        "message": "反馈"
     },
 
     "help": {
@@ -67,6 +67,14 @@
         "message": "复制成功时在窗口右上角显示提示"
     },
 
+    "opt_always_allow_copy": {
+        "message": "默认开启解除复制限制功能"
+    },
+
+    "shortcuts": {
+        "message": "快捷键"
+    },
+
     "save_notify": {
         "message": "选项已经保存成功"
     },
@@ -103,8 +111,8 @@
         "message": "禁用"
     },
 
-    "shortcuts": {
-        "message": "快捷键"
+    "allowcopy": {
+        "message": "允许复制"
     },
 
     "notification_title": {
@@ -128,6 +136,10 @@
 
     "cmd_toggle_autocopy": {
         "message": "切换选中自动复制"
+    },
+
+    "cmd_allow_copy": {
+        "message": "解除当前标签页的复制限制"
     },
 
     "disable_autocopy": {

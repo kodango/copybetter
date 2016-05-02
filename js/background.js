@@ -36,14 +36,12 @@ function clearConfig()
 /*
  * Load configuration from local
  */
-function loadConfig(reset)
+function loadConfig()
 {
-    if (reset)
-        clearConfig();
-
-    return {
+    var cfg = {
         'enableAutocopy': get('enableAutocopy', true),
-        'cacheSize': get('cacheSize', 10),
+        'alwaysAllowCopy': get('alwaysAllowCopy', false),
+        'cacheSize': get('cacheSize', 5),
         'copyOnSelectInBox': get('copyOnSelectInBox', false),
         'copyTitleRawFmt': get('copyTitleRawFmt', '%TITLE% - %URL%'),
         'copyTitleFmt': get('copyTitleFmt', '<a href="%URL%" title="%TITLE%" target="_blank">%TITLE%</a>'),
@@ -52,6 +50,8 @@ function loadConfig(reset)
         'cache': get('cache', []),
         'showCopyNotification': get('showCopyNotification', true)
     };
+
+    return cfg;
 }
 
 /*
@@ -59,6 +59,8 @@ function loadConfig(reset)
  */
 function updateConfig()
 {
+    config = loadConfig();
+
     chrome.tabs.query({}, function(tabs) {
         debug('Send update config message to all tabs');
 
@@ -78,11 +80,6 @@ function debug(msg)
     if (config.enableDebug)
         this.console.log('[DEBUG] ' + msg);
 }
-
-/* Config object */
-var config = loadConfig();
-/* Copy cache */
-var cache = config.cache;
 
 /*
  * Show the notification
@@ -141,8 +138,9 @@ function doCopy(str, noCache)
         }
 
         /* Push current copied string to cache */
-        if (cache[cache.length - 1] != str)
+        if (cache[cache.length - 1] != str) {
             cache.push(str);
+        }
     }
 
     return str;
@@ -234,14 +232,52 @@ function toggleAutocopy(silent)
 }
 
 /*
+ * Allow copy in current active tab
+ */
+function allowCopy()
+{
+    if (config.alwaysAllowCopy)
+        return;
+
+    debug('Allow copy in current tab');
+
+    chrome.tabs.query(
+        {'active': true, 'windowId': chrome.windows.WINDOW_ID_CURRENT},
+        function (tabs) {
+            var id = tabs[0].id;
+            chrome.tabs.executeScript(id, {file:"/js/allowcopy.js"});
+            showNotify(chrome.i18n.getMessage('allowcopy'));
+        }
+    );
+}
+
+/* Config object */
+var config = loadConfig();
+/* Copy cache */
+var cache = config.cache;
+
+/*
  * Store the cache when the window close
  */
-if (config.storeCacheOnExit) {
-    chrome.windows.onRemoved.addListener(function(windowId) {
+chrome.windows.onRemoved.addListener(function(windowId) {
+    if (config.storeCacheOnExit) {
         debug('Store the cache when exit');
         set('cache', cache);
-    });
-}
+    }
+});
+
+/*
+ * Allow copy by default if set
+ */
+chrome.tabs.onUpdated.addListener(function(tabId, changeInfo, tab) {
+    if (changeInfo.status == "complete") {
+        if (config.alwaysAllowCopy && tab.url.startsWith("http")) {
+            debug('Allow copy in current tab: ' + tab.url);
+            console.log(changeInfo);
+            chrome.tabs.executeScript(tab.id, {file:"/js/allowcopy.js"});
+        }
+    }
+});
 
 /*
  * Command passing between content script and background page
@@ -265,8 +301,9 @@ chrome.commands.onCommand.addListener(function(command) {
         case "cmd_toggle_autocopy":
             toggleAutocopy();
             break;
-        case "cmd_copy_selected_in_html":
-
+        case "cmd_allow_copy":
+            allowCopy();
+            break;
         default:
             break;
     }
@@ -284,7 +321,6 @@ chrome.extension.onMessage.addListener(
                 break;
             case 'load':
                 debug('Request to load config from content script');
-                config = loadConfig();
                 sendResponse(config);
                 break;
             default:

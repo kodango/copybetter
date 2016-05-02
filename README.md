@@ -18,6 +18,7 @@ Extension functions
 * 复制当前或者所有标签的标题与地址;
 * 保存最近N个拷贝的内容, 可以自由选择;
 * 清除网页隐藏文字;
+* 解除网页复制限制;
 
 This extension has below functions:
 * Copy selected text automatically;
@@ -25,6 +26,7 @@ This extension has below functions:
 * Copy title and URL of current tab or all tabs;
 * Store recent copy cache, you can select it from the toolbar button menu;
 * Remove hide text in the web when copy;
+* Allow copy in the page;
 
 Extension usage
 ================
@@ -59,6 +61,7 @@ Extension usage
     <a href="http://kodango.com/copybetter-extension" title="Chrome扩展之增强复制" target="_blank">Chrome扩展之增强复制</a>
     <a href="chrome://extensions/" title="扩展程序" target="_blank">扩展程序</a>
     ```
+* v1.1.7 之后新增解除网页复制限制功能，可以默认全局开启或者手动开启（可以快捷键触发）；
 
 此时, 再次点击工具栏上的图标, 会显示上面复制的内容, 点击列表中的每一项复制。 如果当前在输入框中, 则会自动将选择的内容插入到光标所在的位置。
 
@@ -99,6 +102,7 @@ list of `<a href="%URL%" target="_blank">%TITLE%</a>`:
     <a href="https://www.google.com/" title="Google" target="_blank">Google</a>
     <a href="https://twitter.com/" title="Twitter" target="_blank">Twitter</a>
     ```
+* Aftre v1.1.7, this extension also provide a new feature to allow copy in page, you can enable globally or manually；
 
 Copy Better extension will remember recent N copy record in cache, you can find
 this list through clicking the toolbar icon. Select any copy cache item in the

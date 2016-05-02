@@ -20,7 +20,7 @@ body, html {
 
 #header-info {
     float: left;
-    padding:5px 40px;
+    padding:10px 40px;
     font-size:1.3em;
 }
 
@@ -60,7 +60,7 @@ body, html {
 
 #button button:hover {
     cursor:pointer;
-    border:1px solid #555; 
+    border:1px solid #555;
     box-shadow: 0 0 1px #555;
     background: #1a1a1a;
     color: #fafafa;
