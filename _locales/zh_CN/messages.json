@@ -131,7 +131,7 @@
     },
 
     "cmd_copy_alltabs_in_text": {
-        "message": "复制当所有标签的标题和地址(文本格式)"
+        "message": "复制所有标签的标题和地址(文本格式)"
     },
 
     "cmd_toggle_autocopy": {
