@@ -23,28 +23,25 @@ function $(id)
 /*
  * Save the option value
  */
-function save_config(key, id)
+function saveOption(id)
 {
-    var elem;
-
-    id = id || key;
-    elem = $(id);
+    var elem = $(id);
 
     if (elem.disabled)
         return;
 
     if (elem.tagName == 'TEXTAREA') {
-        bgWindow.set(key, elem.value);
-        debug('Save option, key: ' + key + ', value: ' + elem.value);
+        bgWindow.config[id] = elem.value;
+        debug('Save option, id: ' + id + ', value: ' + elem.value);
     } else if (elem.tagName == 'INPUT') {
         switch (elem.type) {
             case 'checkbox':
-                bgWindow.set(key, elem.checked);
-                debug('Save option, key: ' + key + ', value: ' + elem.checked);
+                bgWindow.config[id] = elem.checked;
+                debug('Save option, id: ' + id + ', value: ' + elem.checked);
                 break;
             default:
-                bgWindow.set(key, elem.value);
-                debug('Save option, key: ' + key + ', value: ' + elem.value);
+                bgWindow.config[id] = elem.value;
+                debug('Save option, id: ' + id + ', value: ' + elem.value);
                 break;
         }
     } else {
@@ -57,7 +54,7 @@ function save_config(key, id)
  */
 function initOptions()
 {
-    var config = bgWindow.loadConfig();
+    var config = bgWindow.config;
 
     $('copyOnSelectInBox').checked = config.copyOnSelectInBox;
     $('copyTitleRawFmt').value = config.copyTitleRawFmt;
@@ -73,22 +70,18 @@ function initOptions()
 /*
  * Save current option settings
  */
-function saveOptions(key)
+function saveOptions()
 {
-    if (key) {
-        save_config(key);
-    } else {
-        save_config('copyOnSelectInBox');
-        save_config('copyTitleRawFmt');
-        save_config('copyTitleFmt');
-        save_config('enableDebug');
-        save_config('storeCacheOnExit');
-        save_config('cacheSize');
-        save_config('showCopyNotification');
-        save_config('alwaysAllowCopy');
-    }
+    saveOption('copyOnSelectInBox');
+    saveOption('copyTitleRawFmt');
+    saveOption('copyTitleFmt');
+    saveOption('enableDebug');
+    saveOption('alwaysAllowCopy');
+    saveOption('cacheSize');
+    saveOption('storeCacheOnExit');
+    saveOption('showCopyNotification');
 
-    bgWindow.updateConfig();
+    bgWindow.syncConfig();
 }
 
 /*
@@ -96,7 +89,7 @@ function saveOptions(key)
  */
 function resetOptions()
 {
-    bgWindow.clearConfig();
+    bgWindow.config = bgWindow.loadConfig(true);
     initOptions();
     saveOptions();
 }
@@ -154,10 +147,12 @@ document.addEventListener('change', function(event) {
 
     if (target.id == 'cacheSize') {
         $('cacheSizeValue').value = target.value;
+    } else if (target.id == 'cacheSizeValue') {
+        $('cacheSize').value = target.value;
     }
 
     // Auto-save the settings when change
-    saveOptions(target.id);
+    saveOptions();
     showNotify(chrome.i18n.getMessage('autosave_notify'));
 }, false);
 

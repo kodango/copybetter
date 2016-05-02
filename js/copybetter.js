@@ -15,7 +15,7 @@
     function updateConfig(newConfig)
     {
         config = newConfig;
-        debug('Update config successfully');
+        debug('Update config successfully: ' + JSON.stringify(newConfig));
     }
 
     /*
@@ -202,21 +202,16 @@
     /*
      * Copy non-empty value to clipboard
      */
-    function copy(value, mode)
+    function copy(value)
     {
-        if (!config.enableAutocopy)
-            return;
-
         if (value.match(/^(\s|\n)*$/) != null)
             return;
 
-        mode = mode || 'default';
-        debug('Copyied string: ' + value + ', copy mode: ' + mode);
+        debug('Copy string: ' + value);
 
         chrome.extension.sendMessage({
             command: 'copy',
             data: value,
-            mode: mode
         }, function (response) {});
      }
 
@@ -265,6 +260,9 @@
     {
         var value = "", target = event.target;
 
+        if (!config.enableAutoCopy)
+            return;
+
         if (isEditBox(target)) {  // if in a editor
             if (!config.copyOnSelectInBox)
                 return;
@@ -282,6 +280,9 @@
      */
     function onkeydown(event)
     {
+        if (!config.enableAutoCopy)
+            return;
+
         if (event.shiftKey && event.keyCode == 16 && !isEditBox(event.target)) {
             copyFromSelection("html");
         }

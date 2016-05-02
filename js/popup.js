@@ -4,10 +4,6 @@
 
 /* Window object of background page */
 var bgWindow = chrome.extension.getBackgroundPage();
-/* Config object */
-var config = bgWindow.loadConfig();
-/* Copy cache */
-var bgCache = bgWindow.cache;
 
 function debug(msg)
 {
@@ -30,40 +26,43 @@ function generateCacheList()
     var hints = $('hints');
     var cacheList = $('recent-cache');
 
+    var config = bgWindow.config;
+
     $('clear').innerHTML = chrome.i18n.getMessage('clear_cache');
     $('option').innerHTML = chrome.i18n.getMessage('option');
-    $('toggle').innerHTML = chrome.i18n.getMessage(config.enableAutocopy ? 'disable' : 'enable');
+    $('toggle').innerHTML = chrome.i18n.getMessage(config.enableAutoCopy ? 'disable' : 'enable');
 
     if (!config.alwaysAllowCopy)
         $('allowcopy').innerHTML = chrome.i18n.getMessage('allowcopy');
 
-    if (bgCache.length == 0) {
+    var cacheAll = config.cache, cacheSize = cacheAll.length;
+
+    if (cacheAll.length == 0) {
         cacheList.innerHTML = chrome.i18n.getMessage('empty_copy_cache_hint');
         return;
     }
 
-    var cache, ol, li, span, idx;
-
     /*
      * Only show recent cacheSize items
      */
-    if (bgCache.length > config.cacheSize) {
-        cache = bgCache.slice(bgCache.length - config.cacheSize,
-                bgCache.length);
-        idx = bgCache.length - config.cacheSize;
+     var cacheRecent, ol, li, span, idx;
+
+    if (cacheSize> config.cacheSize) {
+        cacheRecent = cacheAll.slice(cacheSize - config.cacheSize, cacheSize);
+        idx = cacheSize - config.cacheSize;
     } else {
-        cache = bgCache;
+        cacheRecent = cacheAll;
         idx = 0;
     }
 
     cacheList.innerHTML = "";
     ol = document.createElement('ol');
 
-    for (item in cache) {
+    for (item in cacheRecent) {
         li = document.createElement('li');
         li.className = "cache-item";
 
-        li.textContent = cache[item];
+        li.textContent = cacheRecent[item];
         li.setAttribute('data-idx', idx++);
 
         ol.appendChild(li);
@@ -91,7 +90,7 @@ function highlightSelected(elem)
  */
 document.addEventListener('click', function(event) {
     if (event.target.id == 'clear') {
-        bgCache.length = 0;
+        bgWindow.config.cache.length = 0;
         generateCacheList();
         debug('Clear the cache...');
     } else if (event.target.className == 'cache-item') {
@@ -102,11 +101,13 @@ document.addEventListener('click', function(event) {
         chrome.tabs.create({'active':true, 'url': 'options.html'});
         debug('Open the option page...');
     } else if (event.target.id == "toggle") {
-        debug('Toggle the disable option...');
-        bgWindow.toggleAutocopy(true);
+        var enableAutoCopy = bgWindow.toggleAutoCopy(true);
+
         $('toggle').innerHTML = chrome.i18n.getMessage(
-            config.enableAutocopy ? "disable" : "enable"
+            enableAutoCopy ? "disable" : "enable"
         );
+
+        debug('Toggle the disable option: ' + enableAutoCopy);
     } else if (event.target.id == 'allowcopy') {
         bgWindow.allowCopy();
     }

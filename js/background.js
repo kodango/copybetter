@@ -6,7 +6,7 @@
 /*
  * Set option to value
  */
-function set(key, val)
+function setOption(key, val)
 {
     val = JSON.stringify(val);
     localStorage.setItem(key, val);
@@ -17,7 +17,7 @@ function set(key, val)
 /*
  * Get option value
  */
-function get(key, def)
+function getOption(key, def)
 {
     if (key in localStorage)
         return JSON.parse(localStorage.getItem(key));
@@ -26,43 +26,49 @@ function get(key, def)
 }
 
 /*
- * Clean options
+ * Load configuration from localStorage
  */
-function clearConfig()
+function loadConfig(reset)
 {
-    localStorage.clear();
-}
+    if (reset) {
+        localStorage.clear();
+    }
 
-/*
- * Load configuration from local
- */
-function loadConfig()
-{
-    var cfg = {
-        'enableAutocopy': get('enableAutocopy', true),
-        'alwaysAllowCopy': get('alwaysAllowCopy', false),
-        'cacheSize': get('cacheSize', 5),
-        'copyOnSelectInBox': get('copyOnSelectInBox', false),
-        'copyTitleRawFmt': get('copyTitleRawFmt', '%TITLE% - %URL%'),
-        'copyTitleFmt': get('copyTitleFmt', '<a href="%URL%" title="%TITLE%" target="_blank">%TITLE%</a>'),
-        'enableDebug': get('enableDebug', false),
-        'storeCacheOnExit': get('storeCacheOnExit', true),
-        'cache': get('cache', []),
-        'showCopyNotification': get('showCopyNotification', true)
+    var config = {
+        'enableAutoCopy': getOption('enableAutoCopy', true),
+        'alwaysAllowCopy': getOption('alwaysAllowCopy', false),
+        'cacheSize': getOption('cacheSize', 5),
+        'copyOnSelectInBox': getOption('copyOnSelectInBox', false),
+        'copyTitleRawFmt': getOption('copyTitleRawFmt', '%TITLE% - %URL%'),
+        'copyTitleFmt': getOption('copyTitleFmt', '<a href="%URL%" title="%TITLE%" target="_blank">%TITLE%</a>'),
+        'enableDebug': getOption('enableDebug', false),
+        'storeCacheOnExit': getOption('storeCacheOnExit', true),
+        'cache': getOption('cache', []),
+        'showCopyNotification': getOption('showCopyNotification', true)
     };
 
-    return cfg;
+    return config;
 }
 
+/* Config object in memory */
+var config = loadConfig();
+debug('Load the configuration from localStorage: ' + JSON.stringify(config));
+
 /*
- * Update configuration
+ * Sync the configuration to all open tabs
  */
-function updateConfig()
+function syncConfig()
 {
-    config = loadConfig();
+    // Save the configuration to localStorage
+    for (var key in config) {
+        if (key == 'cache') // Do not save cache when running
+            continue;
+
+        setOption(key, config[key]);
+    }
 
     chrome.tabs.query({}, function(tabs) {
-        debug('Send update config message to all tabs');
+        debug('Sync the new configuration to all tabs: ' + JSON.stringify(config));
 
         for (var i in tabs) {
             chrome.tabs.sendMessage(tabs[i].id, {
@@ -106,6 +112,8 @@ function showNotify(str)
     }
 
     chrome.notifications.create('copy-notify', options, function () {});
+    debug('Show the notification: ' + options.message);
+
     setTimeout(function() {
         chrome.notifications.clear('copy-notify', function () {});
     }, 3000);
@@ -131,6 +139,8 @@ function doCopy(str, noCache)
     showNotify(str);
 
     if (!noCache) {
+        var cache = config.cache;
+
         /* Re-allocate cache space */
         if (cache.length == 2*config.cacheSize) {
             debug('Cache space is full, re-allocate it');
@@ -218,17 +228,20 @@ function paste(str)
 /*
  * Toggle the auto-copy function
  */
-function toggleAutocopy(silent)
+function toggleAutoCopy(silent)
 {
-    config.enableAutocopy = !config.enableAutocopy;
-    debug('Toggle auto-copy switch: ' + config.enableAutocopy);
-    updateConfig();
+    config.enableAutoCopy = !config.enableAutoCopy;
+    debug('Toggle auto-copy switch: ' + config.enableAutoCopy);
+
+    syncConfig();
 
     if (!silent) {
         showNotify(chrome.i18n.getMessage(
-            config.enableAutocopy ? 'enable_autocopy' : 'disable_autocopy'
+            config.enableAutoCopy ? 'enable_autocopy' : 'disable_autocopy'
         ));
     }
+
+    return config.enableAutoCopy;
 }
 
 /*
@@ -239,30 +252,26 @@ function allowCopy()
     if (config.alwaysAllowCopy)
         return;
 
-    debug('Allow copy in current tab');
-
     chrome.tabs.query(
         {'active': true, 'windowId': chrome.windows.WINDOW_ID_CURRENT},
         function (tabs) {
             var id = tabs[0].id;
+            var url = tabs[0].url;
+
+            debug('Allow copy in current tab: ' + url);
             chrome.tabs.executeScript(id, {file:"/js/allowcopy.js"});
             showNotify(chrome.i18n.getMessage('allowcopy'));
         }
     );
 }
 
-/* Config object */
-var config = loadConfig();
-/* Copy cache */
-var cache = config.cache;
-
 /*
  * Store the cache when the window close
  */
 chrome.windows.onRemoved.addListener(function(windowId) {
     if (config.storeCacheOnExit) {
-        debug('Store the cache when exit');
-        set('cache', cache);
+        debug('Store the cache when exit: ' + JSON.stringify(config.cache));
+        setOption('cache', config.cache);
     }
 });
 
@@ -273,7 +282,6 @@ chrome.tabs.onUpdated.addListener(function(tabId, changeInfo, tab) {
     if (changeInfo.status == "complete") {
         if (config.alwaysAllowCopy && tab.url.startsWith("http")) {
             debug('Allow copy in current tab: ' + tab.url);
-            console.log(changeInfo);
             chrome.tabs.executeScript(tab.id, {file:"/js/allowcopy.js"});
         }
     }
@@ -299,7 +307,7 @@ chrome.commands.onCommand.addListener(function(command) {
             copy(config.copyTitleRawFmt, "all-tau");
             break;
         case "cmd_toggle_autocopy":
-            toggleAutocopy();
+            toggleAutoCopy();
             break;
         case "cmd_allow_copy":
             allowCopy();
@@ -317,7 +325,7 @@ chrome.extension.onMessage.addListener(
         switch (request.command) {
             case 'copy':
                 debug('Request to copy string from content script');
-                copy(request.data, request.mode);
+                copy(request.data);
                 break;
             case 'load':
                 debug('Request to load config from content script');
