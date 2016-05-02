@@ -37,6 +37,7 @@ function loadConfig(reset)
     var config = {
         'enableAutoCopy': getOption('enableAutoCopy', true),
         'alwaysAllowCopy': getOption('alwaysAllowCopy', false),
+        'removeHiddenElements': getOption('removeHiddenElements', true),
         'cacheSize': getOption('cacheSize', 5),
         'copyOnSelectInBox': getOption('copyOnSelectInBox', false),
         'copyTitleRawFmt': getOption('copyTitleRawFmt', '%TITLE% - %URL%'),
@@ -235,10 +236,17 @@ function toggleAutoCopy(silent)
 
     syncConfig();
 
-    if (!silent) {
-        showNotify(chrome.i18n.getMessage(
-            config.enableAutoCopy ? 'enable_autocopy' : 'disable_autocopy'
-        ));
+    // if (!silent) {
+    //     showNotify(chrome.i18n.getMessage(
+    //         config.enableAutoCopy ? 'enable_autocopy' : 'disable_autocopy'
+    //     ));
+    // }
+
+    if (config.enableAutoCopy) {
+        chrome.browserAction.setBadgeText({'text': ''});
+    } else {
+        chrome.browserAction.setBadgeText({'text': 'OFF'});
+        chrome.browserAction.setBadgeBackgroundColor({'color': '#FF0000'});
     }
 
     return config.enableAutoCopy;

@@ -61,6 +61,7 @@ function initOptions()
     $('copyTitleFmt').value = config.copyTitleFmt;
     $('enableDebug').checked = config.enableDebug;
     $('alwaysAllowCopy').checked = config.alwaysAllowCopy;
+    $('removeHiddenElements').checked = config.removeHiddenElements;
     $('cacheSize').value = config.cacheSize;
     $('cacheSizeValue').value = config.cacheSize;
     $('storeCacheOnExit').checked = config.storeCacheOnExit;
@@ -77,6 +78,7 @@ function saveOptions()
     saveOption('copyTitleFmt');
     saveOption('enableDebug');
     saveOption('alwaysAllowCopy');
+    saveOption('removeHiddenElements');
     saveOption('cacheSize');
     saveOption('storeCacheOnExit');
     saveOption('showCopyNotification');
@@ -123,6 +125,7 @@ function displayI18N()
     $('copyTitleFmt-text').innerHTML = chrome.i18n.getMessage('opt_copy_title_fmt');
     $('enableDebug-text').innerHTML = chrome.i18n.getMessage('opt_enable_debug');
     $('alwaysAllowCopy-text').innerHTML = chrome.i18n.getMessage('opt_always_allow_copy');
+    $('removeHiddenElements-text').innerHTML = chrome.i18n.getMessage('opt_remove_hidden_elements');
     $('storeCacheOnExit-text').innerHTML = chrome.i18n.getMessage('opt_store_cache_on_exit');
     $('cacheSize-text').innerHTML = chrome.i18n.getMessage('opt_cache_size');
     $('showCopyNotification-text').innerHTML = chrome.i18n.getMessage('opt_show_copy_notification');

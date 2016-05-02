@@ -162,7 +162,11 @@
         }
 
         /* Remove hidden text in the selection content */
-        removeHidden(range.commonAncestorContainer);
+        if (config.removeHiddenElements) {
+            removeHidden(range.commonAncestorContainer);
+        } else {
+            debug('Do not try to remove hidden elements');
+        }
 
         if (textOnly) {
             return sel.toString();

@@ -55,6 +55,10 @@
         "message": "*Enable debug log function"
     },
 
+    "opt_remove_hidden_elements": {
+        "message": "Remove hidden elements when select to copy"
+    },
+
     "opt_store_cache_on_exit": {
         "message": "Store the copy cache when exit current window"
     },

@@ -55,6 +55,10 @@
         "message": "*启用调试日志"
     },
 
+    "opt_remove_hidden_elements": {
+        "message": "选中复制时清理隐藏元素"
+    },
+
     "opt_store_cache_on_exit": {
         "message": "退出当前窗口时保存剪贴版中的缓存内容"
     },
