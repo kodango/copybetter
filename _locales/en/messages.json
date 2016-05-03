@@ -119,6 +119,14 @@
         "message": "Unlock page restriction"
     },
 
+    "disable_autocopy": {
+        "message": "Disable auto copy selected text"
+    },
+
+    "enable_autocopy": {
+        "message": "Enable auto copy selected text"
+    },
+
     "cmd_copy_curtab_in_html": {
         "message": "Copy the title&url of current tab in html format"
     },

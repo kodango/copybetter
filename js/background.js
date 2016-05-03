@@ -69,11 +69,20 @@ function syncConfig()
     }
 
     chrome.tabs.query({}, function(tabs) {
-        debug('Sync the new configuration to all tabs: ' + JSON.stringify(config));
+        var min_config = {};
+
+        for (var key in config) {
+            if (key == 'cache')
+                continue
+            else if (config.hasOwnProperty(key))
+                min_config[key] = config[key];
+        }
+
+        debug('Sync the new configuration to all tabs: ' + JSON.stringify(min_config));
 
         for (var i in tabs) {
             chrome.tabs.sendMessage(tabs[i].id, {
-                command: 'update', data: config
+                command: 'update', data: min_config
             });
         }
     });
@@ -241,6 +250,12 @@ function toggleAutoCopy(silent)
     } else {
         chrome.browserAction.setBadgeText({'text': 'OFF'});
         chrome.browserAction.setBadgeBackgroundColor({'color': '#FF0000'});
+    }
+
+    if (!silent) {
+        showNotify(chrome.i18n.getMessage(
+            config.enableAutoCopy ? 'enable_autocopy' : 'disable_autocopy'
+        ));
     }
 
     return config.enableAutoCopy;

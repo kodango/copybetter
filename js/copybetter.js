@@ -251,7 +251,9 @@
 
         /* Unselect it... */
         if (fmt == "html") {
-            sel.removeAllRanges();
+            setTimeout(function() {
+                sel.removeAllRanges();
+            }, 2000);
         }
 
         copy(value);
@@ -267,7 +269,8 @@
         if (!config.enableAutoCopy)
             return;
 
-        if (isEditBox(target)) {  // if in a editor
+        if (isEditBox(target)) {
+            // if in a editor, just copy selection text
             if (!config.copyOnSelectInBox)
                 return;
 
@@ -275,7 +278,8 @@
                 target.selectionEnd);
             copy(value);
         } else {
-            copyFromSelection("text", event.target);
+            // If shiftKey is pressed, copy as html format, otherwise use text
+            copyFromSelection( event.altKey ? "html" : "text", event.target);
         }
     }
 
@@ -287,7 +291,7 @@
         if (!config.enableAutoCopy)
             return;
 
-        if (event.shiftKey && event.keyCode == 16 && !isEditBox(event.target)) {
+        if (event.altKey && event.keyCode == 18 && !isEditBox(event.target)) {
             copyFromSelection("html");
         }
     }
@@ -320,30 +324,4 @@
 
     document.addEventListener('keydown', onkeydown, false);
     document.addEventListener('mouseup', onmouseup, false);
-
-    /*
-     * Bind events to loaded iframes
-     */
-    document.addEventListener('load', function (event) {
-        if (event.target.tagName != 'IFRAME')
-            return;
-
-        var iframe = event.target;
-        var iframe_url = iframe.src, iframe_origin;
-
-        if (iframe_url != '') { // stop cross origin access
-            iframe_origin = iframe_url.match(/^.+:\/\/.[^/]+/)[0];
-
-            if (iframe_origin != location.origin)
-                return;
-        }
-
-        var doc = iframe.contentDocument;
-
-        if (doc == null)
-            return;
-
-        doc.addEventListener('keydown', onkeydown, false);
-        doc.addEventListener('mouseup', onmouseup, false);
-    }, true)
 })();

@@ -119,6 +119,14 @@
         "message": "解除页面限制"
     },
 
+    "disable_autocopy": {
+        "message": "禁用选中自动复制功能"
+    },
+
+    "enable_autocopy": {
+        "message": "启用选中自动复制功能"
+    },
+
     "cmd_copy_curtab_in_html": {
         "message": "复制当前标签的标题和地址(HTML格式)"
     },
