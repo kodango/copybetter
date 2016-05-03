@@ -53,9 +53,6 @@
              doClean(el, event.type);
              el = el.parentNode;
          }
-
-         // Clean the root document
-         doClean(document, event.type);
      }
 
      /* The main entry */
@@ -68,6 +65,7 @@
 
          // Clean all the binded events which disables the copy
          for (i = 0; i < len; i++) {
+             doClean(document, events[i]);
              document.addEventListener(events[i], cleanHandler, true);
          }
      }
