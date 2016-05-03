@@ -110,28 +110,50 @@ function showNotify(txt)
 }
 
 /*
+ * Prepend text node into target element
+ */
+function prependText(elem_id, msg_name)
+{
+    var str = chrome.i18n.getMessage(msg_name);
+    var elem = $(elem_id), textNode;
+
+    if (!elem)
+        return;
+
+    // Note: text node do not accept tags
+    //textNode = document.createTextNode(str);
+    //elem.insertBefore(textNode, elem.firstChild);
+    elem.innerHTML = str + elem.innerHTML;
+
+    return elem;
+}
+
+/*
  * Display i18n messages
  */
 function displayI18N()
 {
     document.title = chrome.i18n.getMessage('opt_title_name');
-    $('header-text').innerHTML = document.title;
 
-    $('feedback').innerHTML = chrome.i18n.getMessage('feedback');
-    $('help').innerHTML = chrome.i18n.getMessage('help');
-    $('reset').innerHTML = chrome.i18n.getMessage('reset');
-    $('shortcuts').innerHTML = chrome.i18n.getMessage('shortcuts');
+    prependText('extension-name', 'ext_name');
+    prependText('extension-settings-title', 'opt_extension_settings');
 
-    $('copyOnSelectInBox-text').innerHTML = chrome.i18n.getMessage('opt_copy_on_select_in_box');
-    $('copyTitleRawFmt-text').innerHTML = chrome.i18n.getMessage('opt_copy_title_raw_fmt');
-    $('copyTitleFmt-text').innerHTML = chrome.i18n.getMessage('opt_copy_title_fmt');
-    $('enableDebug-text').innerHTML = chrome.i18n.getMessage('opt_enable_debug');
-    $('alwaysAllowCopy-text').innerHTML = chrome.i18n.getMessage('opt_always_allow_copy');
-    $('enableRichCopy-text').innerHTML = chrome.i18n.getMessage('opt_enable_rich_copy');
-    $('removeHiddenElements-text').innerHTML = chrome.i18n.getMessage('opt_remove_hidden_elements');
-    $('storeCacheOnExit-text').innerHTML = chrome.i18n.getMessage('opt_store_cache_on_exit');
-    $('cacheSize-text').innerHTML = chrome.i18n.getMessage('opt_cache_size');
-    $('showCopyNotification-text').innerHTML = chrome.i18n.getMessage('opt_show_copy_notification');
+    prependText('feedback', 'feedback');
+    prependText('reset', 'reset');
+    prependText('shortcuts', 'shortcuts');
+
+    prependText('copyOnSelectInBox-text', 'opt_copy_on_select_in_box');
+    prependText('copyTitleFmt-text', 'opt_copy_title_fmt');
+    prependText('copyTitleRawFmt-text', 'opt_copy_title_raw_fmt');
+
+    prependText('alwaysAllowCopy-text', 'opt_always_allow_copy');
+    prependText('enableRichCopy-text', 'opt_enable_rich_copy');
+    prependText('removeHiddenElements-text', 'opt_remove_hidden_elements');
+    prependText('storeCacheOnExit-text', 'opt_store_cache_on_exit');
+    prependText('showCopyNotification-text', 'opt_show_copy_notification');
+    prependText('enableDebug-text', 'opt_enable_debug');
+
+    prependText('cacheSize-text', 'opt_cache_size');
 }
 
 /*

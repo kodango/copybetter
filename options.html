@@ -3,73 +3,80 @@
 <head>
 <meta http-equiv="content-type" content="text/html; charset=utf-8" />
 <title></title>
+<link href="/css/kube.min.css" rel="stylesheet" type="text/css">
 <link href="/css/options.css" rel="stylesheet" type="text/css">
 <script src="/js/options.js" type="text/javascript" charset="utf-8"></script>
 </head>
 <body>
-<div id="header" class="clearfix">
-    <div id="header-text"></div>
-    <div id="header-info">
-        <a href="http://weibo.com/dangoakachan" target="_blank">@kodango</a> | <a href="http://kodango.com/copybetter-extension#comment" id="feedback" target="_blank"></a> | <a href="https://github.com/dangoakachan/copybetter/blob/master/README.md" id="help" target="_blank"></a> | <a href="#" id="shortcuts"></a> | <a href="#" id="reset"></a> <span id="status"></span>
+    <div id="header" class="highlight">
+        <row>
+            <column cols="4" id="header-text"><h2 id="extension-name"></h2></column>
+            <column offset="3" cols="5" id="header-info" class="text-right">
+                <span class="label label-success" id="status"></span>
+                <span class="label label-primary"><a href="#" id="shortcuts"></a></span>
+                <span class="label label-primary"><a href="#"  id="reset"></a></span>
+                <span class="label label-primary"><a href="https://github.com/dangoakachan/copybetter/issues" id="feedback" target="_blank"></a></span>
+                <span class="label label-primary"><a href="http://kodango.com/" target="_blank">@kodango</a></span>
+            </column>
+        </row>
     </div>
-</div>
-<div id="content">
-<div id="settings">
-<table cellpadding="0" cellspacing="0">
-    <tbody>
-        <tr>
-            <td id="copyOnSelectInBox-text" class="option-text"></td>
-            <td><input id="copyOnSelectInBox" type="checkbox" /></td>
-        </tr>
-        <tr>
-            <td id="copyTitleRawFmt-text" class="option-text"></td>
-            <td><textarea id="copyTitleRawFmt"></textarea></td>
-        </tr>
-        <tr>
-            <td id="copyTitleFmt-text" class="option-text"></td>
-            <td><textarea id="copyTitleFmt"></textarea></td>
-        </tr>
-        <tr>
-            <td id="alwaysAllowCopy-text" class="option-text"></td>
-            <td><input id="alwaysAllowCopy" type="checkbox" /></td>
-        </tr>
-        <tr>
-            <td id="enableRichCopy-text" class="option-text"></td>
-            <td><input id="enableRichCopy" type="checkbox" /></td>
-        </tr>
-        <tr>
-            <td id="enableDebug-text" class="option-text"></td>
-            <td><input id="enableDebug" type="checkbox" /></td>
-        </tr>
-        <tr>
-            <td id="removeHiddenElements-text" class="option-text"></td>
-            <td><input id="removeHiddenElements" type="checkbox" /></td>
-        </tr>
-        <tr>
-            <td id="storeCacheOnExit-text" class="option-text"></td>
-            <td><input id="storeCacheOnExit" type="checkbox" /></td>
-        </tr>
-        <tr>
-            <td id="cacheSize-text" class="option-text"></td>
-            <td>
-                <input id="cacheSize" type="range" min="5" max="500" step="5"/>
-                <input id="cacheSizeValue" type="text" value="" size="5"/>
-            </td>
-        </tr>
-        <tr>
-            <td id="showCopyNotification-text" class="option-text"></td>
-            <td><input id="showCopyNotification" type="checkbox" /></td>
-        </tr>
-    </tbody>
-</table>
-</div>
-<!--
-<div id="button">
-<button id="save"></button>
-<button id="restore"></button>
-<button id="reset"></button>
-</div>
--->
-</div>
+
+    <div id="content">
+        <fieldset id="extension-settings">
+            <legend id="extension-settings-title" class="bold big"></legend>
+            <row>
+                <column cols="4"><label class="checkbox" id="copyOnSelectInBox-text"></label></column>
+                <column cols="5"><input type="checkbox" id="copyOnSelectInBox" /></column>
+            </row>
+
+            <row>
+                <column cols="4"><label class="checkbox" id="alwaysAllowCopy-text">&nbsp;<span class="req">*</span></label></column>
+                <column cols="5"><input type="checkbox" id="alwaysAllowCopy" /></column>
+            </row>
+
+            <row>
+                <column cols="4"><label class="checkbox" id="enableRichCopy-text"></label></column>
+                <column cols="5"><input type="checkbox" id="enableRichCopy" /></column>
+            </row>
+
+            <row>
+                <column cols="4"><label class="checkbox" id="enableDebug-text">&nbsp;<span class="req">*</span></label></column>
+                <column cols="5"><input type="checkbox" id="enableDebug" /></column>
+            </row>
+
+            <row>
+                <column cols="4"><label class="checkbox" id="storeCacheOnExit-text"></label></column>
+                <column cols="5"><input type="checkbox" id="storeCacheOnExit" /></column>
+            </row>
+
+            <row>
+                <column cols="4"><label class="checkbox" id="removeHiddenElements-text"></label></column>
+                <column cols="5"><input type="checkbox" id="removeHiddenElements" /></column>
+            </row>
+
+            <row>
+                <column cols="4"><label class="checkbox" id="showCopyNotification-text"></label></column>
+                <column cols="5"><input type="checkbox" id="showCopyNotification" /></column>
+            </row>
+
+            <row>
+                <column cols="4"><label class="range" id="cacheSize-text"></label></column>
+                <column cols="5">
+                    <input type="range"  min="5" max="500" step="5" id="cacheSize" />
+                    <input type="text" id="cacheSizeValue" value="" size="5" />
+                </column>
+            </row>
+
+            <row>
+                <column cols="4"><label id="copyTitleFmt-text"></label></column>
+                <column cols="5"><textarea id="copyTitleFmt" rows="2"></textarea></column>
+            </row>
+
+            <row>
+                <column cols="4"><label id="copyTitleRawFmt-text"></label></column>
+                <column cols="5"><textarea id="copyTitleRawFmt" rows="2"></textarea></column>
+            </row>
+        </fieldset>
+    </div>
 </body>
 </html>

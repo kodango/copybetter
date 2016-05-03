@@ -12,7 +12,7 @@
     },
 
     "opt_title_name": {
-        "message": "Copy Better Options"
+        "message": "Copy Better Settings"
     },
 
     "feedback": {
@@ -35,6 +35,10 @@
         "message": "Restore"
     },
 
+    "opt_extension_settings": {
+        "message": "Extension settings"
+    },
+
     "opt_copy_on_select": {
         "message": "Automatically copy selected text"
     },
@@ -52,7 +56,7 @@
     },
 
     "opt_enable_debug": {
-        "message": "* Enable the extension debug log"
+        "message": "Enable the extension debug log"
     },
 
     "opt_remove_hidden_elements": {
@@ -76,7 +80,7 @@
     },
 
     "opt_enable_rich_copy": {
-        "message": "Copy selected text in HTML format while pressing the Alt key"
+        "message": "Copy selected text in HTML format while pressing the <kbd>Alt</kbd> key"
     },
 
     "shortcuts": {

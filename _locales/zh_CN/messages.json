@@ -12,7 +12,7 @@
     },
 
     "opt_title_name": {
-        "message": "Copy Better 选项"
+        "message": "增强复制设置"
     },
 
     "feedback": {
@@ -35,6 +35,10 @@
         "message": "恢复"
     },
 
+    "opt_extension_settings": {
+        "message": "扩展设置"
+    },
+
     "opt_copy_on_select": {
         "message": "选中文字时自动复制"
     },
@@ -48,11 +52,11 @@
     },
 
     "opt_copy_title_fmt": {
-        "message": "设置复制标签标题和地址的HTML格式"
+        "message": "设置复制标签标题和地址的 HTML 格式"
     },
 
     "opt_enable_debug": {
-        "message": "* 启用调试日志"
+        "message": "启用调试日志"
     },
 
     "opt_remove_hidden_elements": {
@@ -76,7 +80,7 @@
     },
 
     "opt_enable_rich_copy": {
-        "message": "选中文本的同时按下 Alt 键以 HTML 格式复制文本"
+        "message": "选中文本的同时按下 <kbd>Alt</kbd> 键以 HTML 格式复制文本"
     },
 
     "shortcuts": {
