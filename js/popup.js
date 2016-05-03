@@ -118,7 +118,7 @@ document.addEventListener('click', function(event) {
     } else if (target.id == "toggle-autocopy") {
         var enableAutoCopy = bgWindow.toggleAutoCopy(true);
 
-        $('toggle').innerHTML = chrome.i18n.getMessage(
+        $('toggle-autocopy').innerHTML = chrome.i18n.getMessage(
             enableAutoCopy ? "disable" : "enable"
         );
 

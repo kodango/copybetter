@@ -116,7 +116,7 @@
     },
 
     "enable": {
-        "message": "禁用选中复制"
+        "message": "启用选中复制"
     },
 
     "disable": {
