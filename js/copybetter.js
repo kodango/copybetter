@@ -64,16 +64,15 @@
      */
     function colorValue(c)
     {
-        var regex=/rgba?\((\d+),\s*(\d+),\s*(\d+)(?:,\s*(\d)+)?\)/;
-        var m = c.match(regex);
+        var m = c.match(/rgba?\(([.0-9]+),\s*([.0-9]+),\s*([.0-9]+)(?:,\s*([.0-9]+))?\)/);
 
         if (m) {
             if (m[4] === undefined)
                 m[4] = 1;
 
-            return [m[1], m[2], m[3], m[4]]
+            return [m[1], m[2], m[3], m[4]];
         } else {
-            return [0, 0, 0, 0]
+            return ["0", "0", "0", "0"];
         }
     }
 
@@ -85,8 +84,8 @@
         var l_c = colorValue(lhs), r_c = colorValue(rhs);
         var i;
 
-        for (i = 0; i < 3; i++) {
-            if (Math.abs(l_c[i] - r_c[i]) > DELTA)
+        for (i = 0; i < 4; i++) {
+            if (l_c[i] != r_c[i])
                 return false;
         }
 
@@ -105,6 +104,10 @@
         /* font size is zero, so we can't see it */
         if (css(node, 'font-size') == 0 || css(node, 'font-size') == '0px')
             return true;
+
+        // Empty node, do not remove
+        if (node.textContent.match(/^(\s|\n)*$/) != null)
+            return false;
 
         var bg = getActualBackgroundColor(node);
         var color = css(node, 'color');
