@@ -36,6 +36,7 @@ function loadConfig(reset)
 
     var config = {
         'enableAutoCopy': getOption('enableAutoCopy', true),
+        'enableRichCopy': getOption('enableRichCopy', true),
         'alwaysAllowCopy': getOption('alwaysAllowCopy', false),
         'removeHiddenElements': getOption('removeHiddenElements', true),
         'cacheSize': getOption('cacheSize', 5),

@@ -75,6 +75,10 @@
         "message": "默认开启解除页面复制限制功能"
     },
 
+    "opt_enable_rich_copy": {
+        "message": "选中文本的同时按下 Alt 键以 HTML 格式复制文本"
+    },
+
     "shortcuts": {
         "message": "快捷键"
     },

@@ -242,21 +242,12 @@
      */
     function copyFromSelection(fmt)
     {
-        var sel = window.getSelection(), value;
+        var sel = window.getSelection();
 
         if (!isSelected(sel))
             return;
 
-        value = fmt == "html" ? html(sel) : text(sel);
-
-        /* Unselect it... */
-        if (fmt == "html") {
-            setTimeout(function() {
-                sel.removeAllRanges();
-            }, 2000);
-        }
-
-        copy(value);
+        copy(fmt == "html" ? html(sel) : text(sel));
     }
 
     /*
@@ -264,22 +255,24 @@
      */
     function onmouseup(event)
     {
-        var value = "", target = event.target;
+        var tg = event.target;
 
         if (!config.enableAutoCopy)
             return;
 
-        if (isEditBox(target)) {
+        if (isEditBox(tg)) {
             // if in a editor, just copy selection text
             if (!config.copyOnSelectInBox)
                 return;
 
-            value = target.value.substring(target.selectionStart,
-                target.selectionEnd);
-            copy(value);
+            copy(tg.value.substring(tg.selectionStart, tg.selectionEnd));
         } else {
             // If shiftKey is pressed, copy as html format, otherwise use text
-            copyFromSelection( event.altKey ? "html" : "text", event.target);
+            if (config.enableRichCopy && event.altKey) {
+                copyFromSelection("html");
+            } else {
+                copyFromSelection("text");
+            }
         }
     }
 
@@ -288,10 +281,14 @@
      */
     function onkeydown(event)
     {
-        if (!config.enableAutoCopy)
+        if (!config.enableAutoCopy || !config.enableRichCopy)
             return;
 
-        if (event.altKey && event.keyCode == 18 && !isEditBox(event.target)) {
+        // Do not take affect in edit box
+        if (isEditBox(event.target))
+            return;
+
+        if (event.altKey && event.keyCode == 18) {
             copyFromSelection("html");
         }
     }

@@ -33,7 +33,7 @@ Extension usage
 中文说明
 --------
 
-* 安装改扩展后选中文字会自动复制, 如果在选中的情况下按下`Shift`键则会拷贝当前选中内容的HTML源代码。
+* 安装改扩展后选中文字会自动复制, 如果在选中的情况下按下`Alt`键则会拷贝当前选中内容的HTML源代码。
 * 按下`Ctrl+Y`键以文本格式复制当前标签的标题与地址, 默认的格式为:
 
     ```
@@ -70,7 +70,7 @@ Extension usage
 English Help
 ------------
 
-After the extension is installed, it will be copied automatically by default, you can disable this function through the option. If you press `Shift` when select text, then the html source code will be copied instead.
+After the extension is installed, it will be copied automatically by default, you can disable this function through the option. If you press `Alt` when select text, then the html source code will be copied instead.
 
 * Press `Ctrl+Y` will copy the current tab's tile and url
 in text format like `%TITLE% - %URL%`. For example, if you visit google.com

@@ -75,6 +75,10 @@
         "message": "Unlock page restriction to allow copy by default"
     },
 
+    "opt_enable_rich_copy": {
+        "message": "Copy selected text in HTML format while pressing the Alt key"
+    },
+
     "shortcuts": {
         "message": "Shortcuts"
     },
