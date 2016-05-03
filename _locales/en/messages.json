@@ -108,19 +108,19 @@
     },
 
     "clear_cache": {
-        "message": "Clear cache"
+        "message": "Clear copy cache"
     },
 
-    "option": {
-        "message": "Option"
+    "settings": {
+        "message": "Settings"
     },
 
     "enable": {
-        "message": "Enable"
+        "message": "Enable auto copy"
     },
 
     "disable": {
-        "message": "Disable"
+        "message": "Disable auto copy"
     },
 
     "allowcopy": {

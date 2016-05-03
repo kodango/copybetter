@@ -108,19 +108,19 @@
     },
 
     "clear_cache": {
-        "message": "清空缓存"
+        "message": "清空复制缓存"
     },
 
-    "option": {
+    "settings": {
         "message": "设置"
     },
 
     "enable": {
-        "message": "启用"
+        "message": "禁用选中复制"
     },
 
     "disable": {
-        "message": "禁用"
+        "message": "禁用选中复制"
     },
 
     "allowcopy": {

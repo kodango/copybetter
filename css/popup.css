@@ -1,42 +1,51 @@
 body {
-    margin: 0;
-    font-size: 12px;
+    margin: 5px 20px;
+    font-size: 13px;
+    width: 200px;
 }
 
-#popup {
-    width: 300px;
-    padding: 10px 8px;
+.text-left {
+    text-align: left;
 }
 
-#hints a {
-    text-decoration: none;
-    padding-left: 2px;
-    padding-right: 2px;
+.bold {
+    font-weight: bold;
 }
 
-#hints {
-    padding-bottom: 5px;
-    border-bottom: 1px solid silver;
-    text-align: right;
+.highlight {
+    font-weight: bold;
+    color: green;
 }
 
-#recent-cache {
-    padding-top: 5px;
-}
-
-#recent-cache ol {
+ul, ol {
     padding: 0;
-    margin:0;
+    margin: 0;
 }
 
-li.cache-item {
+li {
     text-overflow: ellipsis;
     overflow: hidden;
     white-space: nowrap;
-    list-style-position: inside;
+    list-style: none;
+    padding: 5px 0;
 }
 
-li.selected {
-    color: green;
-    font-weight: bold;
+#extension-menu {
+    border-bottom: 1px solid silver;
+    padding: 5px 0;
+}
+
+#extension-menu span {
+    cursor: pointer;
+}
+
+#extension-menu span a {
+    text-decoration: none;
+    color: black;
+    border: 0;
+    outline: 0;
+}
+
+#recent-cache {
+    padding: 5px 0;
 }
