@@ -4,11 +4,11 @@
     },
 
     "ext_desc": {
-        "message": "扩展原生复制功能"
+        "message": "让复制的体验更加美好"
     },
 
     "browser_action_title": {
-        "message": "打开剪贴版缓存列表"
+        "message": "显示复制缓存"
     },
 
     "opt_title_name": {
@@ -52,27 +52,27 @@
     },
 
     "opt_enable_debug": {
-        "message": "*启用调试日志"
+        "message": "* 启用调试日志"
     },
 
     "opt_remove_hidden_elements": {
-        "message": "选中复制时清理隐藏元素"
+        "message": "选中复制时自动清理隐藏元素"
     },
 
     "opt_store_cache_on_exit": {
-        "message": "退出当前窗口时保存剪贴版中的缓存内容"
+        "message": "退出当前窗口时保存复制缓存"
     },
 
     "opt_cache_size": {
-        "message": "剪贴版中保存的缓存个数"
+        "message": "复制缓存保留的最大个数"
     },
 
     "opt_show_copy_notification": {
-        "message": "复制成功时在窗口右上角显示提示"
+        "message": "复制完成后显示通知提示"
     },
 
     "opt_always_allow_copy": {
-        "message": "默认开启解除复制限制功能"
+        "message": "默认开启解除页面复制限制功能"
     },
 
     "shortcuts": {
@@ -84,7 +84,7 @@
     },
 
     "autosave_notify": {
-        "message": "选项已经自动保存成功"
+        "message": "选项已经自动保存"
     },
 
     "reset_notify": {
@@ -96,7 +96,7 @@
     },
 
     "empty_copy_cache_hint": {
-        "message": "剪贴版缓存为空!"
+        "message": "复制缓存列表为空"
     },
 
     "clear_cache": {
@@ -116,22 +116,18 @@
     },
 
     "allowcopy": {
-        "message": "允许复制"
-    },
-
-    "notification_title": {
-        "message": "增强复制通知"
+        "message": "解除页面限制"
     },
 
     "cmd_copy_curtab_in_html": {
-        "message": "复制当前标签的标题和地址(html格式)"
+        "message": "复制当前标签的标题和地址(HTML格式)"
     },
 
     "cmd_copy_curtab_in_text": {
         "message": "复制当前标签的标题和地址(文本格式)"
     },
     "cmd_copy_alltabs_in_html": {
-        "message": "复制所有标签的标题和地址(html格式)"
+        "message": "复制所有标签的标题和地址(HTML格式)"
     },
 
     "cmd_copy_alltabs_in_text": {
@@ -139,18 +135,10 @@
     },
 
     "cmd_toggle_autocopy": {
-        "message": "切换选中自动复制"
+        "message": "切换选中自动复制功能"
     },
 
     "cmd_allow_copy": {
-        "message": "解除当前标签页的复制限制"
-    },
-
-    "disable_autocopy": {
-        "message": "禁用选中自动复制"
-    },
-
-    "enable_autocopy": {
-        "message": "启用选中自动复制"
+        "message": "解除当前页面的复制限制"
     }
 }

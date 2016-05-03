@@ -236,12 +236,6 @@ function toggleAutoCopy(silent)
 
     syncConfig();
 
-    // if (!silent) {
-    //     showNotify(chrome.i18n.getMessage(
-    //         config.enableAutoCopy ? 'enable_autocopy' : 'disable_autocopy'
-    //     ));
-    // }
-
     if (config.enableAutoCopy) {
         chrome.browserAction.setBadgeText({'text': ''});
     } else {

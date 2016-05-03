@@ -4,11 +4,11 @@
     },
 
     "ext_desc": {
-        "message": "Make copy better"
+        "message": "Let the copy experience more better"
     },
 
     "browser_action_title": {
-        "message": "Open copy cache list"
+        "message": "Show copy cache"
     },
 
     "opt_title_name": {
@@ -36,43 +36,43 @@
     },
 
     "opt_copy_on_select": {
-        "message": "Copy selected text automatically"
+        "message": "Automatically copy selected text"
     },
 
     "opt_copy_on_select_in_box": {
-        "message": "Copy selected text in edit box automatically"
+        "message": "Automatically opy selected text in edit box"
     },
 
     "opt_copy_title_raw_fmt": {
-        "message": "Set the text format when copy title and url"
+        "message": "Set the text format when copy title and url of tab(s)"
     },
 
     "opt_copy_title_fmt": {
-        "message": "Set the HTML format when copy title and url"
+        "message": "Set the HTML format when copy title and url of tab(s)"
     },
 
     "opt_enable_debug": {
-        "message": "*Enable debug log function"
+        "message": "* Enable the extension debug log"
     },
 
     "opt_remove_hidden_elements": {
-        "message": "Remove hidden elements when select to copy"
+        "message": "Automatically clean up hidden element when selected copy"
     },
 
     "opt_store_cache_on_exit": {
-        "message": "Store the copy cache when exit current window"
+        "message": "Save clipboard cache when exiting the current window"
     },
 
     "opt_cache_size": {
-        "message": "The maximum number of copy cache item"
+        "message": "The maximum number of cached copy reserved"
     },
 
     "opt_show_copy_notification": {
-        "message": "Show notification in the right-top corner when copy is done"
+        "message": "Show notification after copy done"
     },
 
     "opt_always_allow_copy": {
-        "message": "Enable allow copy function by default"
+        "message": "Unlock page restriction to allow copy by default"
     },
 
     "shortcuts": {
@@ -92,7 +92,7 @@
     },
 
     "restore_notify": {
-        "message": "Options have been restored successfully"
+        "message": "Option has been restored to the last saved settings"
     },
 
     "empty_copy_cache_hint": {
@@ -100,7 +100,7 @@
     },
 
     "clear_cache": {
-        "message": "Clear"
+        "message": "Clear cache"
     },
 
     "option": {
@@ -116,11 +116,7 @@
     },
 
     "allowcopy": {
-        "message": "Allow copy"
-    },
-
-    "notification_title": {
-        "message": "Copy Better Notification"
+        "message": "Unlock page restriction"
     },
 
     "cmd_copy_curtab_in_html": {
@@ -143,14 +139,6 @@
     },
 
     "cmd_allow_copy": {
-        "message": "Allow copy in current tab"
-    },
-
-    "disable_autocopy": {
-        "message": "Enable auto-copy selected text"
-    },
-
-    "enable_autocopy": {
-        "message": "Disable auto-copy selected text"
+        "message": "Unlock the current page restriction"
     }
 }

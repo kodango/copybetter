@@ -5,18 +5,15 @@
 /* Window object of background page */
 var bgWindow = chrome.extension.getBackgroundPage();
 
-function debug(msg)
-{
-    bgWindow.debug.call(this, msg);
-}
-
 /*
  * Shortchut for document.getElementById
  */
-function $(id)
-{
-    return document.getElementById(id);
-}
+function $(id) { return document.getElementById(id); }
+
+/*
+ * Debug function
+ */
+function debug(msg) { bgWindow.debug.call(this, msg); }
 
 /*
  * Generate the copy cache list
