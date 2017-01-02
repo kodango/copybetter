@@ -140,7 +140,7 @@ document.addEventListener('click', function(event) {
             displayCacheList();
         } else {
             highlightSelected(target);
-            bgWindow.paste(idx);
+            bgWindow.paste(cache[idx]);
 
             debug('Paste cache text to content script');
         }
