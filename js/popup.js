@@ -23,14 +23,18 @@ function displayExtMenu()
     var hints = $('extension-menu');
     var config = bgWindow.config;
 
-    $('clear-cache').innerHTML = chrome.i18n.getMessage('clear_cache');
-    $('extension-settings').innerHTML = chrome.i18n.getMessage('settings');
     $('toggle-autocopy').innerHTML = chrome.i18n.getMessage(config.enableAutoCopy ? 'disable' : 'enable');
-    $('feedback').innerHTML = chrome.i18n.getMessage('feedback');
-    $('shortcuts').innerHTML = chrome.i18n.getMessage('shortcuts');
+    $('clear-cache').innerHTML = chrome.i18n.getMessage('clear_cache');
 
     if (!config.alwaysAllowCopy)
         $('allow-copy').innerHTML = chrome.i18n.getMessage('allowcopy');
+
+    $('copy-cur-tau-in-html').innerHTML = chrome.i18n.getMessage('copy_curtab_in_html')
+    $('copy-all-tau-in-html').innerHTML = chrome.i18n.getMessage('copy_alltabs_in_html')
+    $('copy-cur-tau-in-text').innerHTML = chrome.i18n.getMessage('copy_curtab_in_text')
+    $('copy-all-tau-in-text').innerHTML = chrome.i18n.getMessage('copy_alltabs_in_text')
+
+    $('extension-settings').innerHTML = chrome.i18n.getMessage('settings');
 
     return;
 }
@@ -98,24 +102,7 @@ function highlightSelected(elem)
 document.addEventListener('click', function(event) {
     var target = event.target;
 
-    if (target.id == 'clear-cache') {
-        var cache = bgWindow.config.cache;
-
-        cache.length = 0;
-        displayCacheList();
-
-        debug('Clear the cache...');
-    } else if (target.className == 'cache-item') {
-        var cache = bgWindow.config.cache;
-
-        highlightSelected(target);
-        bgWindow.paste(cache[target.dataset.idx]);
-
-        debug('Paste cache text to content script');
-    } else if (target.id == "extension-settings") {
-        chrome.tabs.create({'active':true, 'url': 'options.html'});
-        debug('Open the option page...');
-    } else if (target.id == "toggle-autocopy") {
+    if (target.id == "toggle-autocopy") {
         var enableAutoCopy = bgWindow.toggleAutoCopy(true);
 
         $('toggle-autocopy').innerHTML = chrome.i18n.getMessage(
@@ -123,10 +110,33 @@ document.addEventListener('click', function(event) {
         );
 
         debug('Toggle the disable option: ' + enableAutoCopy);
+    } else if (target.id == 'clear-cache') {
+        var cache = bgWindow.config.cache;
+
+        cache.length = 0;
+        displayCacheList();
+
+        debug('Clear the cache...');
     } else if (target.id == 'allow-copy') {
         bgWindow.allowCopy();
-    } else if (target.id == 'shortcuts') {
-        chrome.tabs.create({'active':true, url:'chrome://extensions/configureCommands'});
+    } else if (target.id == 'copy-cur-tau-in-html') {
+        bgWindow.copy('html', "cur-tau");
+    } else if (target.id == 'copy-all-tau-in-html') {
+        bgWindow.copy('html', "all-tau");
+    } else if (target.id == 'copy-cur-tau-in-text') {
+        bgWindow.copy('text', "cur-tau");
+    } else if (target.id == 'copy-all-tau-in-text') {
+        bgWindow.copy('text', "all-tau");
+    } else if (target.id == "extension-settings") {
+        chrome.tabs.create({'active':true, 'url': 'options.html'});
+        debug('Open the option page...');
+    } else if (target.className == 'cache-item') {
+        var cache = bgWindow.config.cache;
+
+        highlightSelected(target);
+        bgWindow.paste(cache[target.dataset.idx]);
+
+        debug('Paste cache text to content script');
     }
 }, false);
 

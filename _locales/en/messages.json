@@ -131,6 +131,22 @@
         "message": "Disable auto copy selected text"
     },
 
+    "copy_curtab_in_html": {
+        "message": "Copy current tab(HTML)"
+    },
+
+    "copy_curtab_in_text": {
+        "message": "Copy current tab"
+    },
+
+    "copy_alltabs_in_html": {
+        "message": "Copy all tabs(HTML)"
+    },
+
+    "copy_alltabs_in_text": {
+        "message": "Copy all tabs"
+    },
+
     "enable_autocopy": {
         "message": "Enable auto copy selected text"
     },

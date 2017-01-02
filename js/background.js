@@ -174,6 +174,8 @@ function copy(str, mode)
         return "";
 
     if (mode == 'cur-tau') {
+        str = (str == 'text') ? config.copyTitleRawFmt : config.copyTitleFmt
+
         chrome.tabs.query(
             {'active': true, 'windowId': chrome.windows.WINDOW_ID_CURRENT},
             function (tabs) {
@@ -185,6 +187,8 @@ function copy(str, mode)
             }
         );
     } else if (mode == 'all-tau') {
+        str = (str == 'text') ? config.copyTitleRawFmt : config.copyTitleFmt
+
         chrome.tabs.query(
             {'windowId': chrome.windows.WINDOW_ID_CURRENT},
             function (tabs) {
@@ -313,16 +317,16 @@ chrome.commands.onCommand.addListener(function(command) {
 
     switch (command) {
         case "cmd_copy_curtab_in_html":
-            copy(config.copyTitleFmt, "cur-tau");
+            copy('html', "cur-tau");
             break;
         case "cmd_copy_curtab_in_text":
-            copy(config.copyTitleRawFmt, "cur-tau");
+            copy('text', "cur-tau");
             break;
         case "cmd_copy_alltabs_in_html":
-            copy(config.copyTitleFmt, "all-tau");
+            copy('html', "all-tau");
             break;
         case "cmd_copy_alltabs_in_text":
-            copy(config.copyTitleRawFmt, "all-tau");
+            copy('text', "all-tau");
             break;
         case "cmd_toggle_autocopy":
             toggleAutoCopy();
