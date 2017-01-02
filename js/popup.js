@@ -132,11 +132,18 @@ document.addEventListener('click', function(event) {
         debug('Open the option page...');
     } else if (target.className == 'cache-item') {
         var cache = bgWindow.config.cache;
+        var idx = parseInt(target.dataset.idx);
 
-        highlightSelected(target);
-        bgWindow.paste(cache[target.dataset.idx]);
+        if (event.altKey) {
+            debug('Remove item #' + idx + 'cache text to content script');
+            cache.remove(idx);
+            displayCacheList();
+        } else {
+            highlightSelected(target);
+            bgWindow.paste(idx);
 
-        debug('Paste cache text to content script');
+            debug('Paste cache text to content script');
+        }
     }
 }, false);
 
