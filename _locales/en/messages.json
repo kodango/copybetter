@@ -63,6 +63,10 @@
         "message": "Automatically clean up hidden element when selected copy"
     },
 
+    "opt_trim_blank_lines": {
+        "message": "Automatically remove the extra blank lines when selected copy"
+    },
+
     "opt_store_cache_on_exit": {
         "message": "Save clipboard cache when exiting the current window"
     },

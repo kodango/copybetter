@@ -63,6 +63,7 @@ function initOptions()
     $('alwaysAllowCopy').checked = config.alwaysAllowCopy;
     $('enableRichCopy').checked = config.enableRichCopy;
     $('removeHiddenElements').checked = config.removeHiddenElements;
+    $('trimBlankLines').checked = config.trimBlankLines;
     $('cacheSize').value = config.cacheSize;
     $('cacheSizeValue').value = config.cacheSize;
     $('storeCacheOnExit').checked = config.storeCacheOnExit;
@@ -81,6 +82,7 @@ function saveOptions()
     saveOption('alwaysAllowCopy');
     saveOption('enableRichCopy');
     saveOption('removeHiddenElements');
+    saveOption('trimBlankLines');
     saveOption('cacheSize');
     saveOption('storeCacheOnExit');
     saveOption('showCopyNotification');
@@ -149,6 +151,7 @@ function displayI18N()
     prependText('alwaysAllowCopy-text', 'opt_always_allow_copy');
     prependText('enableRichCopy-text', 'opt_enable_rich_copy');
     prependText('removeHiddenElements-text', 'opt_remove_hidden_elements');
+    prependText('trimBlankLines-text', 'opt_trim_blank_lines');
     prependText('storeCacheOnExit-text', 'opt_store_cache_on_exit');
     prependText('showCopyNotification-text', 'opt_show_copy_notification');
     prependText('enableDebug-text', 'opt_enable_debug');

@@ -46,6 +46,7 @@ function loadConfig(reset)
         'enableRichCopy': getOption('enableRichCopy', true),
         'alwaysAllowCopy': getOption('alwaysAllowCopy', false),
         'removeHiddenElements': getOption('removeHiddenElements', true),
+        'trimBlankLines': getOption('trimBlankLines', true),
         'cacheSize': getOption('cacheSize', 5),
         'copyOnSelectInBox': getOption('copyOnSelectInBox', false),
         'copyTitleRawFmt': getOption('copyTitleRawFmt', '%TITLE% - %URL%'),
@@ -212,8 +213,12 @@ function copy(str, mode)
         );
     } else {
         /* Trim leading and trailing newlines */
-        str = str.replace(/^\n+|\n+$/, '');
-        str = str.replace(/\xa0/g, ' ');
+        //str = str.replace(/^\n+|\n+$/, '');
+        //str = str.replace(/\xa0/g, ' ');
+
+        if (config.trimBlankLines) {
+            str = str.trim();
+        }
 
         doCopy(str, mode == 'no-cache');
     }

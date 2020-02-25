@@ -63,6 +63,10 @@
         "message": "选中复制时自动清理隐藏元素"
     },
 
+    "opt_trim_blank_lines": {
+        "message": "选中复制时自动删除多余的空行和空白字符"
+    },
+
     "opt_store_cache_on_exit": {
         "message": "退出当前窗口时保存复制缓存"
     },
