@@ -199,7 +199,7 @@ function copy(str, mode)
             function (tabs) {
                 var url, title, value = "";
 
-                for (var i in tabs) {
+                for (var i = 0, len = tabs.length; i < len; i++) {
                     url = tabs[i].url;
                     title = tabs[i].title;
 
@@ -333,12 +333,12 @@ chrome.commands.onCommand.addListener(function(command) {
         case "cmd_copy_alltabs_in_text":
             copy('text', "all-tau");
             break;
-        case "cmd_toggle_autocopy":
-            toggleAutoCopy();
-            break;
-        case "cmd_allow_copy":
-            allowCopy();
-            break;
+//        case "cmd_toggle_autocopy":
+//            toggleAutoCopy();
+//            break;
+//        case "cmd_allow_copy":
+//            allowCopy();
+//            break;
         default:
             break;
     }

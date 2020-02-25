@@ -57,18 +57,18 @@
               "default": "Ctrl+Shift+Y",
               "mac": "MacCtrl+Shift+Y"
           }
-      },
-      "cmd_toggle_autocopy": {
-          "description": "__MSG_cmd_toggle_autocopy__",
-          "suggested_key": {
-              "default": "Alt+Comma"
-          }
-      },
-      "cmd_allow_copy": {
-          "description": "__MSG_cmd_allow_copy__",
-          "suggested_key": {
-              "default": "Alt+Period"
-          }
+      //},
+      //"cmd_toggle_autocopy": {
+      //    "description": "__MSG_cmd_toggle_autocopy__",
+      //    "suggested_key": {
+      //        "default": "Alt+Comma"
+      //    }
+      //},
+      //"cmd_allow_copy": {
+      //    "description": "__MSG_cmd_allow_copy__",
+      //    "suggested_key": {
+      //        "default": "Alt+Period"
+      //    }
       }
   },
 
