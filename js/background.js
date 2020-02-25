@@ -88,10 +88,8 @@ function syncConfig()
 
         debug('Sync the new configuration to all tabs: ' + JSON.stringify(min_config));
 
-        for (var i in tabs) {
-            chrome.tabs.sendMessage(tabs[i].id, {
-                command: 'update', data: min_config
-            });
+        for (var i = 0, len = tabs.length; i < len; i++) {
+            chrome.tabs.sendMessage(tabs[i].id, {command: 'update', data: min_config});
         }
     });
 }
@@ -363,5 +361,7 @@ chrome.extension.onMessage.addListener(
             default:
                 break;
         }
+
+        return true;
     }
 );
