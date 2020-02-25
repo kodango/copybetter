@@ -216,7 +216,7 @@
 
         debug('Copy string: ' + value);
 
-        chrome.extension.sendMessage({
+        chrome.runtime.sendMessage({
             command: 'copy',
             data: value,
         }, function (response) {});
@@ -299,7 +299,7 @@
     /*
      * Proceess paste message from extension
      */
-    chrome.extension.onMessage.addListener(
+    chrome.runtime.onMessage.addListener(
         function(request, sender, sendResponse)
         {
             switch (request.command) {
@@ -320,7 +320,7 @@
     /*
     * Load configure from background page
     */
-    chrome.extension.sendMessage({command: 'load'}, function(response) {
+    chrome.runtime.sendMessage({command: 'load'}, function(response) {
         updateConfig(response);
     });
 

@@ -347,7 +347,7 @@ chrome.commands.onCommand.addListener(function(command) {
 /*
  * Message passing between content script and background page
  */
-chrome.extension.onMessage.addListener(
+chrome.runtime.onMessage.addListener(
     function(request, sender, sendResponse) {
         switch (request.command) {
             case 'copy':
