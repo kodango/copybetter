@@ -10,8 +10,8 @@
 <body>
     <div id="header" class="highlight">
         <row>
-            <column cols="4" id="header-text"><h2 id="extension-name"></h2></column>
-            <column offset="3" cols="5" id="header-info" class="text-right">
+            <column cols="5" id="header-text"><h2 id="extension-name"></h2></column>
+            <column offset="3" cols="4" id="header-info" class="text-right">
                 <span class="label label-success" id="status"></span>
                 <span class="label label-primary"><a href="#" id="shortcuts"></a></span>
                 <span class="label label-primary"><a href="#"  id="reset"></a></span>
@@ -25,47 +25,47 @@
         <fieldset id="extension-settings">
             <legend id="extension-settings-title" class="bold big"></legend>
             <row>
-                <column cols="4"><label class="checkbox" id="copyOnSelectInBox-text"></label></column>
+                <column cols="6"><label class="checkbox" id="copyOnSelectInBox-text"></label></column>
                 <column cols="5"><input type="checkbox" id="copyOnSelectInBox" /></column>
             </row>
 
             <row>
-                <column cols="4"><label class="checkbox" id="alwaysAllowCopy-text">&nbsp;<span class="req">*</span></label></column>
+                <column cols="6"><label class="checkbox" id="alwaysAllowCopy-text">&nbsp;<span class="req">*</span></label></column>
                 <column cols="5"><input type="checkbox" id="alwaysAllowCopy" /></column>
             </row>
 
             <row>
-                <column cols="4"><label class="checkbox" id="enableRichCopy-text"></label></column>
+                <column cols="6"><label class="checkbox" id="enableRichCopy-text"></label></column>
                 <column cols="5"><input type="checkbox" id="enableRichCopy" /></column>
             </row>
 
             <row>
-                <column cols="4"><label class="checkbox" id="enableDebug-text">&nbsp;<span class="req">*</span></label></column>
+                <column cols="6"><label class="checkbox" id="enableDebug-text">&nbsp;<span class="req">*</span></label></column>
                 <column cols="5"><input type="checkbox" id="enableDebug" /></column>
             </row>
 
             <row>
-                <column cols="4"><label class="checkbox" id="storeCacheOnExit-text"></label></column>
+                <column cols="6"><label class="checkbox" id="storeCacheOnExit-text"></label></column>
                 <column cols="5"><input type="checkbox" id="storeCacheOnExit" /></column>
             </row>
 
             <row>
-                <column cols="4"><label class="checkbox" id="removeHiddenElements-text"></label></column>
+                <column cols="6"><label class="checkbox" id="removeHiddenElements-text"></label></column>
                 <column cols="5"><input type="checkbox" id="removeHiddenElements" /></column>
             </row>
 
             <row>
-                <column cols="4"><label class="checkbox" id="trimBlankLines-text"></label></column>
+                <column cols="6"><label class="checkbox" id="trimBlankLines-text"></label></column>
                 <column cols="5"><input type="checkbox" id="trimBlankLines" /></column>
             </row>
 
             <row>
-                <column cols="4"><label class="checkbox" id="showCopyNotification-text"></label></column>
+                <column cols="6"><label class="checkbox" id="showCopyNotification-text"></label></column>
                 <column cols="5"><input type="checkbox" id="showCopyNotification" /></column>
             </row>
 
             <row>
-                <column cols="4"><label class="range" id="cacheSize-text"></label></column>
+                <column cols="6"><label class="range" id="cacheSize-text"></label></column>
                 <column cols="5">
                     <input type="range"  min="5" max="500" step="5" id="cacheSize" />
                     <input type="text" id="cacheSizeValue" value="" size="5" />
@@ -73,12 +73,12 @@
             </row>
 
             <row>
-                <column cols="4"><label id="copyTitleFmt-text"></label></column>
+                <column cols="6"><label id="copyTitleFmt-text"></label></column>
                 <column cols="5"><textarea id="copyTitleFmt" rows="2"></textarea></column>
             </row>
 
             <row>
-                <column cols="4"><label id="copyTitleRawFmt-text"></label></column>
+                <column cols="6"><label id="copyTitleRawFmt-text"></label></column>
                 <column cols="5"><textarea id="copyTitleRawFmt" rows="2"></textarea></column>
             </row>
         </fieldset>

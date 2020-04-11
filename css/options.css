@@ -26,6 +26,7 @@
 
 #content {
     padding: 20px 60px;
+    min-width: 960px;
 }
 
 #extension-settings row {
