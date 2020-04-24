@@ -325,7 +325,7 @@
     });
 
     document.addEventListener('keydown', onkeydown, false);
-    document.addEventListener('mouseup', onmouseup, false);
+    //document.addEventListener('mouseup', onmouseup, false);
     document.addEventListener('DOMContentLoaded', function(e) {
         document.body.addEventListener('mouseup', onmouseup, false);
     }, false);
